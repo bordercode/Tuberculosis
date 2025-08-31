@@ -204,11 +204,11 @@
             <!-- Slide 3: Tasas de Mortalidad 2023 -->
             <div class="slide" id="slide3">
                 <h2 class="slide-title">Tasas de Mortalidad por TB (2023)</h2>
-<div class="slide-content">
-    <div class="text-center">
-        <img src="images/TB_tasas_sex2022.png" alt="Tasas de mortalidad por Tuberculosis ajustada por estructura de edad según sexo por estado 2023" class="img-fluid" style="max-height: 400px; width: auto;">
-        <p class="reference mt-2">Fuente: Elaboración propia con datos de SINAIS</p>
-    </div>
+                <div class="slide-content">
+                    <div class="text-center">
+                        <img src="images/TB_tasas_sex2022.png" alt="Tasas de mortalidad por Tuberculosis ajustada por estructura de edad según sexo por estado 2023" class="img-fluid" style="max-height: 400px; width: auto;">
+                        <p class="reference mt-2">Fuente: Elaboración propia con datos de SINAIS</p>
+                    </div>
                     
                     <div class="key-fact">
                         <p><i class="fas fa-chart-line"></i> <strong>Promedio nacional 2023:</strong> Hombres: 5.25/100,000 hab. | Mujeres: 2.54/100,000 hab.</p>
@@ -300,9 +300,9 @@
                 <h2 class="slide-title">Acceso a Servicios de Neumología</h2>
                 <div class="slide-content">
                     <div class="text-center">
-        <img src="images/DistHub-NEUMOLOGOS-LOC_POP.jpg" alt="Distancias de centros poblacionales a unidades hospitalarias con especialidad en Neumología" class="img-fluid" style="max-height: 400px; width: auto;">
-        <p class="reference mt-2">Fuente: Elaboración propia con datos de SINAIS</p>
-    </div>
+                        <img src="images/DistHub-NEUMOLOGOS-LOC_POP.jpg" alt="Distancias de centros poblacionales a unidades hospitalarias con especialidad en Neumología" class="img-fluid" style="max-height: 400px; width: auto;">
+                        <p class="reference mt-2">Fuente: Elaboración propia con datos de SINAIS</p>
+                    </div>
                                      
                     <p>Se identificaron disparidades significativas en el acceso a servicios especializados en neumología:</p>
                     
@@ -321,8 +321,42 @@
                 </div>
             </div>
             
-            <!-- Slide 6: Tendencias Temporales -->
+            <!-- NEW SLIDE: Acceso vs Tasas de Mortalidad -->
             <div class="slide" id="slide6">
+                <h2 class="slide-title">Relación entre Acceso a Servicios y Tasas de Mortalidad</h2>
+                <div class="slide-content">
+                    <div class="text-center">
+                        <img src="images/Acceso_vs_tasas.png" alt="Relación entre acceso a servicios de neumología y tasas de mortalidad por tuberculosis" class="img-fluid" style="max-height: 400px; width: auto;">
+                        <p class="reference mt-2">Fuente: Elaboración propia con datos de SINAIS</p>
+                    </div>
+                    
+                    <div class="key-fact">
+                        <p><i class="fas fa-chart-line"></i> <strong>Hallazgo principal:</strong> Se observa una paradoja interesante en entidades de alta tasa de mortalidad como Baja California, Nuevo León y Sinaloa.</p>
+                    </div>
+                    
+                    <p><strong>Análisis de la relación:</strong></p>
+                    <ul>
+                        <li>Estas entidades tienen una proporción poblacional con restricciones de acceso a servicios de salud especializados relativamente baja (≤10%)</li>
+                        <li>Sin embargo, presentan tasas de mortalidad en el extremo superior de la distribución en el país (cuadrante 4)</li>
+                        <li>Este patrón sugiere que el acceso, si bien es relevante, es solo parte de un complejo conjunto de determinantes</li>
+                    </ul>
+                    
+                    <p><strong>Factores adicionales identificados:</strong></p>
+                    <ul>
+                        <li>Factores de riesgo específicos como edad y sexo del paciente</li>
+                        <li>Condiciones sociales complejas en entornos fronterizos</li>
+                        <li>Movilidad poblacional intensa</li>
+                        <li>Presencia de comorbilidades como VIH</li>
+                    </ul>
+                </div>
+                <div class="nav-buttons">
+                    <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
+                    <button class="btn-nav" onclick="nextSlide()">Siguiente <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <!-- Slide 7: Tendencias Temporales (renumbered from original slide 6) -->
+            <div class="slide" id="slide7">
                 <h2 class="slide-title">Tendencias Temporales (1998-2023)</h2>
                 <div class="slide-content">
                     <div class="figure-placeholder">
@@ -358,8 +392,8 @@
                 </div>
             </div>
             
-            <!-- Slide 7: Edad de Fallecimiento -->
-            <div class="slide" id="slide7">
+            <!-- Slide 8: Edad de Fallecimiento (renumbered from original slide 7) -->
+            <div class="slide" id="slide8">
                 <h2 class="slide-title">Edad de Fallecimiento y Brechas de Género</h2>
                 <div class="slide-content">
                     <div class="row">
@@ -397,11 +431,11 @@
                 </div>
             </div>
             
-            <!-- Slide 8: Discusión -->
-            <div class="slide" id="slide8">
+            <!-- Slide 9: Discusión (renumbered from original slide 8) -->
+            <div class="slide" id="slide9">
                 <h2 class="slide-title">Discusión</h2>
                 <div class="slide-content">
-                    <p>Aunque México tiene una tasa de mortalidad por TB relativamente baja en el contexto latinoamericano (2.16/100,000 hab.), existen disparidades regionales significativas con tasas que superan los dos dígitos en algunas áreas.</p>
+                    <p>Aunque México tiene una tasa de mortalidad por TB relativamente baja en el contexto latinoamericano (2.16/100,000 hab.), existen disparidades regionales significativas con tasas que superan los two dígitos en algunas áreas.</p>
                     
                     <div class="key-fact">
                         <p><i class="fas fa-map-pin"></i> <strong>Focos de atención:</strong> Baja California (especialmente Tijuana) requiere atención prioritaria debido a su condición fronteriza, alta movilidad poblacional y presencia de comorbilidades como VIH.</p>
@@ -423,8 +457,8 @@
                 </div>
             </div>
             
-            <!-- Slide 9: Conclusiones -->
-            <div class="slide" id="slide9">
+            <!-- Slide 10: Conclusiones (renumbered from original slide 9) -->
+            <div class="slide" id="slide10">
                 <h2 class="slide-title">Conclusiones y Recomendaciones</h2>
                 <div class="slide-content">
                     <p>La evidencia sugiere la necesidad de implementar estrategias diferenciadas según las características específicas de cada región:</p>
@@ -449,8 +483,8 @@
                 </div>
             </div>
             
-            <!-- Slide 10: Contacto -->
-            <div class="slide" id="slide10">
+            <!-- Slide 11: Contacto (renumbered from original slide 10) -->
+            <div class="slide" id="slide11">
                 <h2 class="slide-title">Contacto y Agradecimientos</h2>
                 <div class="slide-content text-center">
                     <div class="my-5 py-4">
@@ -491,7 +525,7 @@
 
     <script>
         let currentSlide = 1;
-        const totalSlides = 10;
+        const totalSlides = 11; // Updated to reflect the new total number of slides
         
         function updateProgressBar() {
             const progress = (currentSlide / totalSlides) * 100;
