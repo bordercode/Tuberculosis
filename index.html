@@ -6,7 +6,6 @@
     <title>Distribución espacial de la mortalidad por tuberculosis en México 1998-2023</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
     <style>
         :root {
             --primary-color: #3498db;
@@ -64,7 +63,7 @@
             background-color: var(--primary-color);
             color: white;
             padding: 10px 20px;
-            border: null;
+            border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
@@ -119,33 +118,6 @@
             margin: 15px 0;
         }
         
-        .interactive-plot {
-            width: 100%;
-            height: 500px;
-            margin: 20px 0;
-        }
-        
-        .plot-controls {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin: 15px 0;
-        }
-        
-        .plot-btn {
-            background-color: var(--primary-color);
-            color: white;
-            border: null;
-            padding: 8px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
-        
-        .plot-btn:hover {
-            background-color: var(--secondary-color);
-        }
-        
         @media (max-width: 768px) {
             .slide {
                 padding: 15px;
@@ -153,10 +125,6 @@
             
             .slide-title {
                 font-size: 1.5rem;
-            }
-            
-            .interactive-plot {
-                height: 400px;
             }
         }
     </style>
@@ -237,10 +205,9 @@
             <div class="slide" id="slide3">
                 <h2 class="slide-title">Tasas de Mortalidad por TB (2023)</h2>
                 <div class="slide-content">
-                    <div id="mortalityPlot" class="interactive-plot"></div>
-                    
-                    <div class="plot-controls">
-                        <button class="plot-btn" onclick="resetZoom()">Reiniciar Zoom</button>
+                    <div class="text-center">
+                        <img src="images/TB_tasas_sex2022.png" alt="Tasas de mortalidad por Tuberculosis ajustada por estructura de edad según sexo por estado 2023" class="img-fluid" style="max-height: 400px; width: auto;">
+                        <p class="reference mt-2">Fuente: Elaboración propia con datos de SINAIS</p>
                     </div>
                     
                     <div class="key-fact">
@@ -264,18 +231,301 @@
                 </div>
             </div>
             
-            <!-- Remaining slides would continue here... -->
+            <!-- Slide 4: Distribución por Categorías -->
+            <div class="slide" id="slide4">
+                <h2 class="slide-title">Distribución por Categorías de TB</h2>
+                <div class="slide-content">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Código CIE-10</th>
+                                    <th>BC (%)</th>
+                                    <th>NL (%)</th>
+                                    <th>Sinaloa (%)</th>
+                                    <th>Sonora (%)</th>
+                                    <th>Nayarit (%)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>A150 (TBP confirmada microscópicamente)</td>
+                                    <td>30.31</td>
+                                    <td>53.99</td>
+                                    <td>21.13</td>
+                                    <td>43.92</td>
+                                    <td>8.51</td>
+                                </tr>
+                                <tr>
+                                    <td>A162 (TBP sin confirmación)</td>
+                                    <td>28.35</td>
+                                    <td>30.03</td>
+                                    <td>54.23</td>
+                                    <td>35.81</td>
+                                    <td>63.83</td>
+                                </tr>
+                                <tr>
+                                    <td>A153 (TBP confirmada por otros métodos)</td>
+                                    <td>22.05</td>
+                                    <td>0.32</td>
+                                    <td>1.41</td>
+                                    <td>3.38</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>A170 (TB meníngea)</td>
+                                    <td>5.51</td>
+                                    <td>3.51</td>
+                                    <td>4.93</td>
+                                    <td>2.70</td>
+                                    <td>6.38</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="reference">Fuente: Elaboración propia con datos de SINAIS</p>
+                    
+                    <div class="key-fact">
+                        <p><i class="fas fa-info-circle"></i> <strong>Hallazgo importante:</strong> Nayarit y Sinaloa presentan alta proporción de casos sin confirmación bacteriológica (A162), sugiriendo limitaciones en capacidades diagnósticas.</p>
+                    </div>
+                </div>
+                <div class="nav-buttons">
+                    <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
+                    <button class="btn-nav" onclick="nextSlide()">Siguiente <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
             
+            <!-- Slide 5: Acceso a Servicios de Salud -->
+            <div class="slide" id="slide5">
+                <h2 class="slide-title">Acceso a Servicios de Neumología</h2>
+                <div class="slide-content">
+                    <div class="text-center">
+                        <img src="images/DistHub-NEUMOLOGOS-LOC_POP.jpg" alt="Distancias de centros poblacionales a unidades hospitalarias con especialidad en Neumología" class="img-fluid" style="max-height: 400px; width: auto;">
+                        <p class="reference mt-2">Fuente: Elaboración propia con datos de SINAIS</p>
+                    </div>
+                                     
+                    <p>Se identificaron disparidades significativas en el acceso a servicios especializados en neumología:</p>
+                    
+                    <ul>
+                        <li>La región central del país (Morelos, Estado de México, CDMX) presenta mejor acceso</li>
+                        <li>Las entidades con mayor mortalidad (BC, NL, Sinaloa) tienen proporción relativamente baja de población con acceso restringido (≤10%)</li>
+                    </ul>
+                    
+                    <div class="key-fact">
+                        <p><i class="fas fa-lightbulb"></i> <strong>Paradoja:</strong> Estados con alta mortalidad no necesariamente presentan las mayores restricciones de acceso, sugiriendo que otros factores determinantes están involucrados.</p>
+                    </div>
+                </div>
+                <div class="nav-buttons">
+                    <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
+                    <button class="btn-nav" onclick="nextSlide()">Siguiente <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <!-- NEW SLIDE: Acceso vs Tasas de Mortalidad -->
+            <div class="slide" id="slide6">
+                <h2 class="slide-title">Relación entre Acceso a Servicios y Tasas de Mortalidad</h2>
+                <div class="slide-content">
+                    <div class="text-center">
+                        <img src="images/Acceso_vs_tasas.png" alt="Relación entre acceso a servicios de neumología y tasas de mortalidad por tuberculosis" class="img-fluid" style="max-height: 400px; width: auto;">
+                        <p class="reference mt-2">Fuente: Elaboración propia con datos de SINAIS</p>
+                    </div>
+                    
+                    <div class="key-fact">
+                        <p><i class="fas fa-chart-line"></i> <strong>Hallazgo principal:</strong> Se observa una paradoja interesante en entidades de alta tasa de mortalidad como Baja California, Nuevo León y Sinaloa.</p>
+                    </div>
+                    
+                    <p><strong>Análisis de la relación:</strong></p>
+                    <ul>
+                        <li>Estas entidades tienen una proporción poblacional con restricciones de acceso a servicios de salud especializados relativamente baja (≤10%)</li>
+                        <li>Sin embargo, presentan tasas de mortalidad en el extremo superior de la distribución en el país (cuadrante 4)</li>
+                        <li>Este patrón sugiere que el acceso, si bien es relevante, es solo parte de un complejo conjunto de determinantes</li>
+                    </ul>
+                    
+                    <p><strong>Factores adicionales identificados:</strong></p>
+                    <ul>
+                        <li>Factores de riesgo específicos como entorno laboral, comorbilidades, edad y sexo del paciente</li>
+                        <li>Condiciones sociales complejas en entornos fronterizos</li>
+                        <li>Movilidad poblacional intensa</li>
+                        <li>Presencia de comorbilidades como VIH y Multi resistencia</li>
+                    </ul>
+                </div>
+                <div class="nav-buttons">
+                    <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
+                    <button class="btn-nav" onclick="nextSlide()">Siguiente <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <!-- Slide 7: Tendencias Temporales (renumbered from original slide 6) -->
+            <div class="slide" id="slide7">
+                <h2 class="slide-title">Tendencias Temporales (1998-2023)</h2>
+                <div class="slide-content">
+                    <div class="figure-placeholder">
+                        <p>[Figura 4: Tasa de mortalidad ajustada por estructura de edad por tuberculosis según sexo por entidad federativa 1998-2023]</p>
+                        <p class="reference">Fuente: Elaboración propia con datos de SINAIS 1998-2023</p>
+                    </div>
+                    
+                    <p><strong>Hallazgos principales:</strong></p>
+                    
+                    <ul>
+                        <li>Trayectoria decreciente general en las tasas de mortalidad</li>
+                        <li>Reducciones significativas en algunas entidades:
+                            <ul>
+                                <li>Tlaxcala: -89.75%</li>
+                                <li>Morelos: -73.45%</li>
+                                <li>Aguascalientes: -72.78%</li>
+                                <li>Puebla: -71.57%</li>
+                            </ul>
+                        </li>
+                        <li>Reducciones limitadas en estados con alta mortalidad:
+                            <ul>
+                                <li>Sinaloa: -22.32%</li>
+                                <li>Nuevo León: -22.76%</li>
+                                <li>Sonora: -29.09%</li>
+                                <li>Baja California: -30.93%</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="nav-buttons">
+                    <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
+                    <button class="btn-nav" onclick="nextSlide()">Siguiente <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <!-- Slide 8: Edad de Fallecimiento (renumbered from original slide 7) -->
+            <div class="slide" id="slide8">
+                <h2 class="slide-title">Edad de Fallecimiento y Brechas de Género</h2>
+                <div class="slide-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="figure-placeholder">
+                                <p>[Figura 5: Distribución de edad media de defunción por tuberculosis por entidad federativa 2023]</p>
+                            </div>
+                            <p class="reference">Fuente: Elaboración propia con datos de SINAIS</p>
+                            
+                            <p><strong>Hallazgos:</strong></p>
+                            <ul>
+                                <li>Edad promedio de fallecimiento: 46-59 años</li>
+                                <li>Baja California, Chihuahua, Sonora y Sinaloa presentan edades significativamente menores que Oaxaca</li>
+                                <li>Baja California: 47 años vs Oaxaca: 57 años (10 años menos)</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="figure-placeholder">
+                                <p>[Figura 6: Distribución de Edad de Muertes por Tuberculosis en Baja California 2023]</p>
+                            </div>
+                            <p class="reference">Fuente: Estimación propia con datos de SINAIS</p>
+                            
+                            <p><strong>Brechas de género:</strong></p>
+                            <ul>
+                                <li>Baja California presenta la mayor brecha: 9.39/100,000 hab.</li>
+                                <li>En el centro del país, la brecha es prácticamente nula</li>
+                                <li>La mortalidad masculina es hasta 9 veces superior a la femenina en algunos estados</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-buttons">
+                    <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
+                    <button class="btn-nav" onclick="nextSlide()">Siguiente <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <!-- Slide 9: Discusión (renumbered from original slide 8) -->
+            <div class="slide" id="slide9">
+                <h2 class="slide-title">Discusión</h2>
+                <div class="slide-content">
+                    <p>Aunque México tiene una tasa de mortalidad por TB relativamente baja en el contexto latinoamericano (2.16/100,000 hab.), existen disparidades regionales significativas con tasas que superan los two dígitos en algunas áreas.</p>
+                    
+                    <div class="key-fact">
+                        <p><i class="fas fa-map-pin"></i> <strong>Focos de atención:</strong> Baja California (especialmente Tijuana) requiere atención prioritaria debido a su condición fronteriza, alta movilidad poblacional y presencia de comorbilidades como VIH.</p>
+                    </div>
+                    
+                    <p><strong>Factores determinantes identificados:</strong></p>
+                    <ul>
+                        <li>Condiciones sociales complejas en entornos fronterizos</li>
+                        <li>Movilidad poblacional (ej. trabajadores agrícolas migrantes en Sinaloa)</li>
+                        <li>Comorbilidades (VIH)</li>
+                        <li>Factores de riesgo en población en edad productiva</li>
+                    </ul>
+                    
+                    <p>El acceso a servicios de salud especializados es importante, pero no es el único factor determinante en los patrones de mortalidad por TB.</p>
+                </div>
+                <div class="nav-buttons">
+                    <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
+                    <button class="btn-nav" onclick="nextSlide()">Siguiente <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <!-- Slide 10: Conclusiones (renumbered from original slide 9) -->
+            <div class="slide" id="slide10">
+                <h2 class="slide-title">Conclusiones y Recomendaciones</h2>
+                <div class="slide-content">
+                    <p>La evidencia sugiere la necesidad de implementar estrategias diferenciadas según las características específicas de cada región:</p>
+                    
+                    <div class="key-fact">
+                        <p><i class="fas fa-clipboard-list"></i> <strong>Grupos de entidades identificadas:</strong></p>
+                    </div>
+                    
+                    <ol>
+                        <li><strong>Grupo 1:</strong> Entidades con problemas de acceso (ej. Sonora) → Esfuerzos para incrementar capacidades de diagnóstico e infraestructura</li>
+                        <li><strong>Grupo 2:</strong> Entidades con dinámica poblacional compleja (ej. Baja California) → Monitoreo clínico de comorbilidades</li>
+                        <li><strong>Grupo 3:</strong> Entidades con acceso favorable pero alta mortalidad (ej. Sinaloa) → Estrategias específicas por contextos sociales</li>
+                    </ol>
+                    
+                    <p>El cumplimiento de las metas de la estrategia "Fin a la Tuberculosis 2030" depende del conocimiento particular de la situación a escala regional y el diseño de esquemas de atención diferenciados.</p>
+                    
+                    <p>Se requieren esfuerzos focalizados en las áreas de mayor mortalidad, considerando los determinantes sociales específicos de cada región.</p>
+                </div>
+                <div class="nav-buttons">
+                    <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
+                    <button class="btn-nav" onclick="nextSlide()">Siguiente <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <!-- Slide 11: Contacto (renumbered from original slide 10) -->
+            <div class="slide" id="slide11">
+                <h2 class="slide-title">Contacto y Agradecimientos</h2>
+                <div class="slide-content text-center">
+                    <div class="my-5 py-4">
+                        <h3>Dr. José Luis Manzanares Rivera</h3>
+                        <p class="lead">Investigador El Colef UNidad Nogales</p>
+                        
+                        <div class="mt-4">
+                            <p><i class="fas fa-envelope"></i> Email: jlmanzanares@coef.mx</p>
+                            <p><i class="fas fa-university"></i> https://investigacion-aplicada.netlify.app/ </p>
+                        </div>
+                    </div>
+                    
+                    <div class="my-5">
+                        <h4>Agradecimientos</h4>
+                        <p>A los organismos que proporcionaron los datos para esta investigación:</p>
+                        <ul class="list-unstyled">
+                            <li>Sistema Nacional de Información en Salud (SINAIS)</li>
+                            <li>Consejo Nacional de Población (CONAPO)</li>
+                            <li>Centro Nacional de Programas Preventivos y Control de Enfermedades (CENAPRECE)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mt-5">
+                        <p><strong>Presentación basada en la investigación:</strong> "Distribución espacial de la mortalidad por tuberculosis en México 1998-2023"</p>
+                    </div>
+                </div>
+                <div class="nav-buttons">
+                    <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
+                    <button class="btn-nav" onclick="goToFirstSlide()">Volver al inicio</button>
+                </div>
+            </div>
         </div>
         
         <footer class="text-center mt-4 pt-3 border-top">
-            <p>© 2023 - Investigación sobre Distribución Espacial de la Mortalidad por Tuberculosis en México</p>
+            <p>© 2025 - Investigación sobre Distribución Espacial de la Mortalidad por Tuberculosis en México</p>
         </footer>
     </div>
 
     <script>
         let currentSlide = 1;
-        const totalSlides = 11;
+        const totalSlides = 11; // Updated to reflect the new total number of slides
         
         function updateProgressBar() {
             const progress = (currentSlide / totalSlides) * 100;
@@ -290,11 +540,6 @@
             document.getElementById(`slide${n}`).classList.add('active');
             currentSlide = n;
             updateProgressBar();
-            
-            // Redraw plot when slide 3 is active
-            if (n === 3) {
-                setTimeout(createPlot, 100);
-            }
         }
         
         function nextSlide() {
@@ -324,158 +569,6 @@
         
         // Initialize progress bar
         updateProgressBar();
-        
-        // Interactive Plot Code
-        // Sample data based on your research
-        const states = [
-            'Aguascalientes', 'Baja California', 'Baja California Sur', 'Campeche', 'Coahuila', 
-            'Colima', 'Chiapas', 'Chihuahua', 'CDMX', 'Durango', 'Guanajuato', 'Guerrero', 
-            'Hidalgo', 'Jalisco', 'México', 'Michoacán', 'Morelos', 'Nayarit', 'Nuevo León', 
-            'Oaxaca', 'Puebla', 'Querétaro', 'Quintana Roo', 'San Luis Potosí', 'Sinaloa', 
-            'Sonora', 'Tabasco', 'Tamaulipas', 'Tlaxcala', 'Veracruz', 'Yucatán', 'Zacatecas'
-        ];
-        
-        const maleRates = [
-            5.55, 13.33, 10.18, 7.23, 5.66, 9.73, 6.93, 5.39, 1.45, 8.18, 1.75, 6.65, 
-            3.50, 3.49, 1.58, 2.61, 5.40, 8.74, 6.74, 5.06, 2.49, 6.22, 6.86, 5.80, 
-            6.88, 9.18, 5.97, 6.24, 5.77, 5.41, 4.22, 4.91
-        ];
-        
-        const femaleRates = [
-            4.21, 3.94, 6.37, 5.98, 2.92, 6.61, 4.73, 2.66, 0.72, 4.09, 1.11, 3.42, 
-            2.39, 1.61, 0.81, 1.55, 3.86, 5.65, 2.73, 2.84, 1.32, 3.13, 5.64, 3.07, 
-            2.64, 2.68, 3.75, 2.92, 3.65, 2.22, 2.67, 3.09
-        ];
-        
-        function createPlot() {
-            // Create the horizontal bar chart to match the original style
-            const trace1 = {
-                x: maleRates,
-                y: states,
-                name: 'Hombres',
-                type: 'bar',
-                orientation: 'h',
-                marker: {
-                    color: '#1f77b4', // Standard blue for males
-                    line: {
-                        width: 0.5,
-                        color: '#1f77b4'
-                    }
-                }
-            };
-            
-            const trace2 = {
-                x: femaleRates,
-                y: states,
-                name: 'Mujeres',
-                type: 'bar',
-                orientation: 'h',
-                marker: {
-                    color: '#ff7f0e', // Standard orange for females
-                    line: {
-                        width: 0.5,
-                        color: '#ff7f0e'
-                    }
-                }
-            };
-            
-            const data = [trace1, trace2];
-            
-            const layout = {
-                title: {
-                    text: 'Tasas de Mortalidad por Tuberculosis por Estado y Sexo (2023)',
-                    font: {
-                        size: 18,
-                        family: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif',
-                        color: '#2c3e50'
-                    },
-                    x: 0.05
-                },
-                xaxis: {
-                    title: {
-                        text: 'Tasa por 100,000 habitantes',
-                        font: {
-                            size: 14,
-                            family: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif'
-                        }
-                    },
-                    tickfont: {
-                        size: 12,
-                        family: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif'
-                    },
-                    gridcolor: 'lightgray',
-                    zerolinecolor: 'lightgray'
-                },
-                yaxis: {
-                    tickfont: {
-                        size: 11,
-                        family: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif'
-                    },
-                    automargin: true
-                },
-                barmode: 'group',
-                hovermode: 'closest',
-                showlegend: true,
-                legend: {
-                    x: 0.8,
-                    y: 0.05,
-                    bgcolor: 'rgba(255, 255, 255, 0.8)',
-                    bordercolor: 'rgba(0, 0, 0, 0.2)',
-                    borderwidth: 1,
-                    font: {
-                        family: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif',
-                        size: 12
-                    }
-                },
-                margin: {
-                    l: 150, // Increased left margin for state names
-                    r: 40,
-                    b: 80,
-                    t: 80,
-                    pad: 10
-                },
-                plot_bgcolor: '#f8f9fa',
-                paper_bgcolor: '#ffffff'
-            };
-            
-            const config = {
-                responsive: true,
-                displayModeBar: true,
-                displaylogo: false,
-                modeBarButtonsToAdd: [
-                    {
-                        name: 'Download',
-                        title: 'Download plot',
-                        icon: Plotly.Icons.camera,
-                        click: function(gd) {
-                            Plotly.downloadImage(gd, {
-                                format: 'png',
-                                filename: 'tasas_mortalidad_tb',
-                                width: 1000,
-                                height: 1200,
-                                scale: 2
-                            });
-                        }
-                    }
-                ],
-                modeBarButtonsToRemove: ['pan2d', 'lasso2d', 'select2d'],
-                scrollZoom: true
-            };
-            
-            Plotly.newPlot('mortalityPlot', data, layout, config);
-        }
-        
-        function resetZoom() {
-            Plotly.relayout('mortalityPlot', {
-                'xaxis.range': null,
-                'yaxis.range': null
-            });
-        }
-        
-        // Initialize plot when page loads and slide 3 is active
-        if (document.getElementById('slide3').classList.contains('active')) {
-            createPlot();
-        }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
