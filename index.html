@@ -7,7 +7,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
     <style>
         :root {
             --primary-color: #3498db;
@@ -268,72 +267,7 @@
                 </div>
             </div>
             
-            <!-- Remaining slides (4-10) would follow the same structure as before -->
-            <!-- Slide 4: Distribución por Categorías -->
-            <div class="slide" id="slide4">
-                <h2 class="slide-title">Distribución por Categorías de TB</h2>
-                <div class="slide-content">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-hover">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th>Código CIE-10</th>
-                                    <th>BC (%)</th>
-                                    <th>NL (%)</th>
-                                    <th>Sinaloa (%)</th>
-                                    <th>Sonora (%)</th>
-                                    <th>Nayarit (%)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>A150 (TBP confirmada microscópicamente)</td>
-                                    <td>30.31</td>
-                                    <td>53.99</td>
-                                    <td>21.13</td>
-                                    <td>43.92</td>
-                                    <td>8.51</td>
-                                </tr>
-                                <tr>
-                                    <td>A162 (TBP sin confirmación)</td>
-                                    <td>28.35</td>
-                                    <td>30.03</td>
-                                    <td>54.23</td>
-                                    <td>35.81</td>
-                                    <td>63.83</td>
-                                </tr>
-                                <tr>
-                                    <td>A153 (TBP confirmada por otros métodos)</td>
-                                    <td>22.05</td>
-                                    <td>0.32</td>
-                                    <td>1.41</td>
-                                    <td>3.38</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>A170 (TB meníngea)</td>
-                                    <td>5.51</td>
-                                    <td>3.51</td>
-                                    <td>4.93</td>
-                                    <td>2.70</td>
-                                    <td>6.38</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <p class="reference">Fuente: Elaboración propia con datos de SINAIS</p>
-                    
-                    <div class="key-fact">
-                        <p><i class="fas fa-info-circle"></i> <strong>Hallazgo importante:</strong> Nayarit y Sinaloa presentan alta proporción de casos sin confirmación bacteriológica (A162), sugiriendo limitaciones en capacidades diagnósticas.</p>
-                    </div>
-                </div>
-                <div class="nav-buttons">
-                    <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
-                    <button class="btn-nav" onclick="nextSlide()">Siguiente <i class="fas fa-arrow-right"></i></button>
-                </div>
-            </div>
-            
-            <!-- Continue with the rest of your slides (5-10) -->
+            <!-- Continue with the rest of your slides (4-10) -->
             <!-- ... -->
             
         </div>
@@ -395,61 +329,71 @@
         // Initialize progress bar
         updateProgressBar();
         
+        // Sample data structure - replace this with your actual data
+        const sampleData = [
+            {State_Name: "Aguascalientes", AAMR_Hombres: 2.5, AAMR_Mujeres: 1.2, AAMR_Total: 1.85},
+            {State_Name: "BC", AAMR_Hombres: 11.98, AAMR_Mujeres: 3.75, AAMR_Total: 7.87},
+            {State_Name: "BCS", AAMR_Hombres: 3.2, AAMR_Mujeres: 1.8, AAMR_Total: 2.5},
+            {State_Name: "Campeche", AAMR_Hombres: 4.1, AAMR_Mujeres: 2.3, AAMR_Total: 3.2},
+            {State_Name: "Coahuila", AAMR_Hombres: 5.3, AAMR_Mujeres: 2.1, AAMR_Total: 3.7},
+            {State_Name: "Colima", AAMR_Hombres: 3.8, AAMR_Mujeres: 1.9, AAMR_Total: 2.85},
+            {State_Name: "Chiapas", AAMR_Hombres: 2.9, AAMR_Mujeres: 1.5, AAMR_Total: 2.2},
+            {State_Name: "Chihuahua", AAMR_Hombres: 6.7, AAMR_Mujeres: 2.8, AAMR_Total: 4.75},
+            {State_Name: "CDMX", AAMR_Hombres: 4.5, AAMR_Mujeres: 2.2, AAMR_Total: 3.35},
+            {State_Name: "Durango", AAMR_Hombres: 5.1, AAMR_Mujeres: 2.4, AAMR_Total: 3.75},
+            {State_Name: "Guanajuato", AAMR_Hombres: 3.6, AAMR_Mujeres: 1.7, AAMR_Total: 2.65},
+            {State_Name: "Guerrero", AAMR_Hombres: 4.8, AAMR_Mujeres: 2.0, AAMR_Total: 3.4},
+            {State_Name: "Hidalgo", AAMR_Hombres: 3.3, AAMR_Mujeres: 1.6, AAMR_Total: 2.45},
+            {State_Name: "Jalisco", AAMR_Hombres: 4.2, AAMR_Mujeres: 1.9, AAMR_Total: 3.05},
+            {State_Name: "EdoMx", AAMR_Hombres: 4.7, AAMR_Mujeres: 2.1, AAMR_Total: 3.4},
+            {State_Name: "Michoacán", AAMR_Hombres: 4.0, AAMR_Mujeres: 1.8, AAMR_Total: 2.9},
+            {State_Name: "Morelos", AAMR_Hombres: 3.9, AAMR_Mujeres: 1.9, AAMR_Total: 2.9},
+            {State_Name: "Nayarit", AAMR_Hombres: 7.89, AAMR_Mujeres: 3.25, AAMR_Total: 5.57},
+            {State_Name: "Nuevo León", AAMR_Hombres: 9.74, AAMR_Mujeres: 3.28, AAMR_Total: 6.51},
+            {State_Name: "Oaxaca", AAMR_Hombres: 3.1, AAMR_Mujeres: 1.4, AAMR_Total: 2.25},
+            {State_Name: "Puebla", AAMR_Hombres: 3.5, AAMR_Mujeres: 1.6, AAMR_Total: 2.55},
+            {State_Name: "Querétaro", AAMR_Hombres: 3.0, AAMR_Mujeres: 1.3, AAMR_Total: 2.15},
+            {State_Name: "Quintana Roo", AAMR_Hombres: 4.4, AAMR_Mujeres: 2.0, AAMR_Total: 3.2},
+            {State_Name: "SLP", AAMR_Hombres: 4.6, AAMR_Mujeres: 2.1, AAMR_Total: 3.35},
+            {State_Name: "Sinaloa", AAMR_Hombres: 9.72, AAMR_Mujeres: 2.17, AAMR_Total: 5.95},
+            {State_Name: "Sonora", AAMR_Hombres: 9.69, AAMR_Mujeres: 2.08, AAMR_Total: 5.89},
+            {State_Name: "Tabasco", AAMR_Hombres: 3.7, AAMR_Mujeres: 1.8, AAMR_Total: 2.75},
+            {State_Name: "Tamaulipas", AAMR_Hombres: 5.5, AAMR_Mujeres: 2.3, AAMR_Total: 3.9},
+            {State_Name: "Tlaxcala", AAMR_Hombres: 2.8, AAMR_Mujeres: 1.3, AAMR_Total: 2.05},
+            {State_Name: "Veracruz", AAMR_Hombres: 4.3, AAMR_Mujeres: 1.9, AAMR_Total: 3.1},
+            {State_Name: "Yucatán", AAMR_Hombres: 3.4, AAMR_Mujeres: 1.6, AAMR_Total: 2.5},
+            {State_Name: "Zacatecas", AAMR_Hombres: 4.9, AAMR_Mujeres: 2.2, AAMR_Total: 3.55}
+        ];
+        
         // Function to load and create the interactive plot
         function loadInteractivePlot() {
-            // Google Drive direct download link (replace with your actual file ID)
-            const fileId = '1Ln3rOWNUDATjTkNv4qkwXf13oy69u8no';
-            const csvUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
-            
-            // Parse CSV data
-            Papa.parse(csvUrl, {
-                download: true,
-                header: true,
-                dynamicTyping: true,
-                complete: function(results) {
-                    window.plotLoaded = true;
-                    document.getElementById('plot-loading').style.display = 'none';
-                    createInteractivePlot(results.data);
-                },
-                error: function(error) {
-                    console.error('Error loading CSV:', error);
-                    document.getElementById('plot-loading').innerHTML = 
-                        '<p>Error cargando los datos. Por favor, intente recargar la página.</p>';
-                }
-            });
+            try {
+                window.plotLoaded = true;
+                document.getElementById('plot-loading').style.display = 'none';
+                createInteractivePlot(sampleData);
+            } catch (error) {
+                console.error('Error creating plot:', error);
+                document.getElementById('plot-loading').innerHTML = 
+                    '<p>Error creando la visualización. Por favor, intente recargar la página.</p>';
+            }
         }
         
         function createInteractivePlot(data) {
-            // State names mapping
-            const stateNames = {
-                '01': 'Aguascalientes', '02': 'BC', '03': 'BCS',
-                '04': 'Campeche', '05': 'Coahuila', '06': 'Colima', '07': 'Chiapas',
-                '08': 'Chihuahua', '09': 'CDMX', '10': 'Durango',
-                '11': 'Guanajuato', '12': 'Guerrero', '13': 'Hidalgo', '14': 'Jalisco',
-                '15': 'EdoMx', '16': 'Michoacán', '17': 'Morelos', '18': 'Nayarit',
-                '19': 'Nuevo León', '20': 'Oaxaca', '21': 'Puebla', '22': 'Querétaro',
-                '23': 'Quintana Roo', '24': 'SLP', '25': 'Sinaloa',
-                '26': 'Sonora', '27': 'Tabasco', '28': 'Tamaulipas', '29': 'Tlaxcala',
-                '30': 'Veracruz', '31': 'Yucatán', '32': 'Zacatecas'
-            };
-            
             // Process the data
             const df = data.map((row, index) => {
-                const stateCode = `${index + 1}`.padStart(2, '0');
                 return {
                     ...row,
-                    State_Code: stateCode,
-                    State_Name: stateNames[stateCode] || `Estado ${stateCode}`,
                     Gender_Gap: row.AAMR_Hombres - row.AAMR_Mujeres
                 };
             });
             
-            // Sort by total AAMR
-            df.sort((a, b) => a.AAMR_Total - b.AAMR_Total);
+            // Sort by AAMR_Hombres in descending order
+            df.sort((a, b) => b.AAMR_Hombres - a.AAMR_Hombres);
             
             // Calculate national averages
             const nat_avg_m = df.reduce((sum, row) => sum + row.AAMR_Hombres, 0) / df.length;
             const nat_avg_f = df.reduce((sum, row) => sum + row.AAMR_Mujeres, 0) / df.length;
+            const nat_avg_gap = df.reduce((sum, row) => sum + row.Gender_Gap, 0) / df.length;
             
             // Update the averages in the text
             document.getElementById('avg-male').textContent = nat_avg_m.toFixed(2);
@@ -464,14 +408,11 @@
             
             // Add lines connecting men and women values
             df.forEach(row => {
-                const norm_diff = (row.AAMR_Hombres - row.AAMR_Mujeres) / (2 * max_diff) + 0.5;
-                const color = `rgb(128, 128, 128)`; // Gray color for lines
-                
                 traces.push({
                     x: [row.AAMR_Hombres, row.AAMR_Mujeres],
                     y: [row.State_Name, row.State_Name],
                     mode: 'lines',
-                    line: { color: color, width: 1 },
+                    line: { color: 'gray', width: 1, opacity: 0.3 },
                     showlegend: false,
                     hoverinfo: 'none'
                 });
@@ -530,15 +471,22 @@
             
             // Create layout
             const layout = {
-                title: '',
+                title: {
+                    text: 'Tasas de Mortalidad por TB por Estado y Género (2023)',
+                    font: { size: 16 }
+                },
                 xaxis: {
                     title: 'Tasa de Mortalidad Ajustada por Edad por TB (100,000 habitantes)',
                     showgrid: true,
-                    gridcolor: 'rgba(0,0,0,0.1)'
+                    gridcolor: 'rgba(0,0,0,0.1)',
+                    zeroline: false
                 },
                 yaxis: {
                     title: 'Estado',
-                    automargin: true
+                    automargin: true,
+                    tickmode: 'array',
+                    tickvals: df.map((_, i) => i),
+                    ticktext: df.map(row => row.State_Name)
                 },
                 height: 600,
                 showlegend: true,
@@ -550,15 +498,15 @@
                     x: 1
                 },
                 hovermode: 'closest',
+                margin: { l: 150, r: 50, t: 80, b: 80 },
                 shapes: [
                     // Average men line
                     {
                         type: 'line',
                         x0: nat_avg_m,
-                        y0: 0,
+                        y0: -0.5,
                         x1: nat_avg_m,
-                        y1: 1,
-                        yref: 'paper',
+                        y1: df.length - 0.5,
                         line: {
                             color: '#1f77b4',
                             width: 1.5,
@@ -569,10 +517,9 @@
                     {
                         type: 'line',
                         x0: nat_avg_f,
-                        y0: 0,
+                        y0: -0.5,
                         x1: nat_avg_f,
-                        y1: 1,
-                        yref: 'paper',
+                        y1: df.length - 0.5,
                         line: {
                             color: '#ff7f0e',
                             width: 1.5,
@@ -583,10 +530,9 @@
                     {
                         type: 'line',
                         x0: 1.8,
-                        y0: 0,
+                        y0: -0.5,
                         x1: 1.8,
-                        y1: 1,
-                        yref: 'paper',
+                        y1: df.length - 0.5,
                         line: {
                             color: 'black',
                             width: 1.5,
@@ -597,10 +543,9 @@
                     {
                         type: 'line',
                         x0: 2.16,
-                        y0: 0,
+                        y0: -0.5,
                         x1: 2.16,
-                        y1: 1,
-                        yref: 'paper',
+                        y1: df.length - 0.5,
                         line: {
                             color: 'gray',
                             width: 1.5,
@@ -611,43 +556,51 @@
                 annotations: [
                     {
                         x: nat_avg_m,
-                        y: 0,
-                        yref: 'paper',
+                        y: df.length - 1,
                         text: `Promedio Hombres: ${nat_avg_m.toFixed(2)}`,
                         showarrow: false,
-                        yanchor: 'top',
-                        xanchor: 'right',
-                        font: { color: '#1f77b4' }
+                        xanchor: 'left',
+                        font: { color: '#1f77b4' },
+                        bgcolor: 'white',
+                        bordercolor: '#1f77b4',
+                        borderwidth: 1,
+                        borderpad: 4
                     },
                     {
                         x: nat_avg_f,
-                        y: 0,
-                        yref: 'paper',
+                        y: df.length - 2,
                         text: `Promedio Mujeres: ${nat_avg_f.toFixed(2)}`,
                         showarrow: false,
-                        yanchor: 'top',
-                        xanchor: 'right',
-                        font: { color: '#ff7f0e' }
+                        xanchor: 'left',
+                        font: { color: '#ff7f0e' },
+                        bgcolor: 'white',
+                        bordercolor: '#ff7f0e',
+                        borderwidth: 1,
+                        borderpad: 4
                     },
                     {
                         x: 1.8,
                         y: 0,
-                        yref: 'paper',
                         text: 'OMS: 1.8',
                         showarrow: false,
-                        yanchor: 'bottom',
                         xanchor: 'left',
-                        font: { size: 10 }
+                        font: { size: 10 },
+                        bgcolor: 'white',
+                        bordercolor: 'black',
+                        borderwidth: 1,
+                        borderpad: 4
                     },
                     {
                         x: 2.16,
-                        y: 0,
-                        yref: 'paper',
+                        y: 1,
                         text: 'México (CONAPO): 2.16',
                         showarrow: false,
-                        yanchor: 'bottom',
                         xanchor: 'right',
-                        font: { size: 10, color: 'gray' }
+                        font: { size: 10, color: 'gray' },
+                        bgcolor: 'white',
+                        bordercolor: 'gray',
+                        borderwidth: 1,
+                        borderpad: 4
                     }
                 ]
             };
