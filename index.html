@@ -329,9 +329,9 @@
         // Initialize progress bar
         updateProgressBar();
         
-        // Sample data structure - replace this with your actual data
+        // Sample data structure with corrected Aguascalientes values
         const sampleData = [
-            {State_Name: "Aguascalientes", AAMR_Hombres: 2.5, AAMR_Mujeres: 1.2, AAMR_Total: 1.85},
+            {State_Name: "Aguascalientes", AAMR_Hombres: 1.8, AAMR_Mujeres: 0.9, AAMR_Total: 1.35},
             {State_Name: "BC", AAMR_Hombres: 11.98, AAMR_Mujeres: 3.75, AAMR_Total: 7.87},
             {State_Name: "BCS", AAMR_Hombres: 3.2, AAMR_Mujeres: 1.8, AAMR_Total: 2.5},
             {State_Name: "Campeche", AAMR_Hombres: 4.1, AAMR_Mujeres: 2.3, AAMR_Total: 3.2},
@@ -387,8 +387,8 @@
                 };
             });
             
-            // Sort by AAMR_Hombres in descending order
-            df.sort((a, b) => b.AAMR_Hombres - a.AAMR_Hombres);
+            // Sort by AAMR_Hombres in ASCENDING order
+            df.sort((a, b) => a.AAMR_Hombres - b.AAMR_Hombres);
             
             // Calculate national averages
             const nat_avg_m = df.reduce((sum, row) => sum + row.AAMR_Hombres, 0) / df.length;
@@ -472,7 +472,7 @@
             // Create layout
             const layout = {
                 title: {
-                    text: 'Tasas de Mortalidad por TB por Estado y Género (2023)',
+                    text: '', // Removed title as requested
                     font: { size: 16 }
                 },
                 xaxis: {
@@ -498,7 +498,7 @@
                     x: 1
                 },
                 hovermode: 'closest',
-                margin: { l: 150, r: 50, t: 80, b: 80 },
+                margin: { l: 150, r: 50, t: 50, b: 80 }, // Reduced top margin since title is removed
                 shapes: [
                     // Average men line
                     {
