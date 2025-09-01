@@ -496,7 +496,7 @@
             <div class="slide" id="slide6">
                 <h2 class="slide-title">Acceso Restringido a Servicios de Neumología</h2>
                 <div class="slide-content">
-                    <div id="access-scatter-plot"></div>
+                    <a href="plots/interactive_plot.html" target="_blank">View Interactive Plot</a>
                     <p class="reference">Fuente: Elaboración propia con datos de SINAIS. Haga clic en cada punto para ver detalles.</p>
                     
                     <div class="key-fact">
@@ -1122,7 +1122,6 @@
                     'Distancia media: %{x:.1f} km<br>' +
                     'Población con acceso restringido: %{y:.1f}%<extra></extra>' +
                     'Tasa mortalidad TB: %{customdata[1]:.2f}/100,000 hab.<extra></extra>',
-                    
                 customdata: data.map(d => [d.Distance, d.Mortality])
             };
             
