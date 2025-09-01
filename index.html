@@ -1,888 +1,110 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Distribución espacial de la mortalidad por tuberculosis en México 1998-2023</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
-    <style>
-        :root {
-            --primary-color: #3498db;
-            --secondary-color: #2c3e50;
-            --accent-color: #e74c3c;
-            --light-color: #ecf0f1;
-            --dark-color: #2c3e50;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
-            color: #333;
-            line-height: 1.6;
-        }
-        
-        .slide-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        .slide {
-            display: none;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            padding: 30px;
-            margin-bottom: 20px;
-            min-height: 500px;
-        }
-        
-        .slide.active {
-            display: block;
-        }
-        
-        .slide-title {
-            color: var(--secondary-color);
-            border-bottom: 3px solid var(--primary-color);
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .slide-content {
-            font-size: 1.1rem;
-        }
-        
-        .nav-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-        
-        .btn-nav {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .btn-nav:hover {
-            background-color: var(--secondary-color);
-        }
-        
-        .progress-container {
-            height: 10px;
-            background-color: #ddd;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-        
-        .progress-bar {
-            height: 100%;
-            background-color: var(--primary-color);
-            border-radius: 5px;
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-        
-        .figure-placeholder {
-            background-color: #f1f1f1;
-            border: 1px dashed #ccc;
-            border-radius: 5px;
-            padding: 30px;
-            text-align: center;
-            margin: 20px 0;
-        }
-        
-        .reference {
-            font-size: 0.9rem;
-            color: #666;
-            font-style: italic;
-            margin-top: 10px;
-        }
-        
-        .highlight {
-            background-color: rgba(231, 76, 60, 0.1);
-            padding: 2px 5px;
-            border-radius: 3px;
-            font-weight: bold;
-        }
-        
-        .key-fact {
-            background-color: #e3f2fd;
-            border-left: 4px solid var(--primary-color);
-            padding: 15px;
-            margin: 15px 0;
-        }
-        
-        #interactive-plot {
-            width: 100%;
-            height: 600px;
-            margin: 20px 0;
-        }
-        
-        .plot-loading {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 300px;
-            flex-direction: column;
-        }
-        
-        .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid var(--primary-color);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin-bottom: 15px;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        @media (max-width: 768px) {
-            .slide {
-                padding: 15px;
-            }
-            
-            .slide-title {
-                font-size: 1.5rem;
-            }
-            
-            #interactive-plot {
-                height: 500px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container py-4">
-        <header class="text-center mb-4">
-            <h1 class="display-4" style="color: var(--secondary-color);">Distribución espacial de la mortalidad por tuberculosis en México 1998-2023</h1>
-            <p class="lead">Evidencia hacia el cumplimiento de las metas de la estrategia Fin a la Tuberculosis 2030</p>
-            <p class="text-muted">Dr. José Luis Manzanares Rivera</p>
-        </header>
-        
-        <div class="progress-container">
-            <div class="progress-bar" id="progress-bar"></div>
-        </div>
-        
-        <div class="slide-container">
-            <!-- Slide 1: Introducción -->
-            <div class="slide active" id="slide1">
-                <h2 class="slide-title">Introducción</h2>
-                <div class="slide-content">
-                    <p>La tuberculosis (TB) sigue siendo un problema de salud pública significativo en México, a pesar de los avances globales en prevención y tratamiento.</p>
-                    
-                    <div class="key-fact">
-                        <p><i class="fas fa-exclamation-circle"></i> <strong>En 2023:</strong> La TB cobró la vida de 2,740 personas en México, con tasas de mortalidad de hasta 12 por cada 100,000 habitantes en algunas regiones.</p>
-                    </div>
-                    
-                    <p>México se encuentra entre los 10 países con mayor mortalidad por TB y menor cobertura de tratamiento en América Latina.</p>
-                    
-                    <p>La heterogeneidad de condiciones sociales, infraestructura hospitalaria y disponibilidad de personal especializado generan importantes desafíos para el control de esta enfermedad.</p>
-                    
-                    <p><strong>Objetivo principal:</strong> Analizar la distribución espacial y temporal de la mortalidad por TB en México entre 1998-2023 para identificar barreras en el acceso a servicios de diagnóstico y tratamiento.</p>
-                </div>
-                <div class="nav-buttons">
-                    <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
-                    <button class="btn-nav" onclick="nextSlide()">Siguiente <i class="fas fa-arrow-right"></i></button>
-                </div>
-            </div>
-            
-            <!-- Slide 2: Métodos -->
-            <div class="slide" id="slide2">
-                <h2 class="slide-title">Metodología</h2>
-                <div class="slide-content">
-                    <p><strong>Diseño del estudio:</strong> Análisis exploratorio retrospectivo de 25 años (1998-2023)</p>
-                    
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h5>Fuentes de datos:</h5>
-                            <ul>
-                                <li>Sistema Nacional de Información en Salud (SINAIS)</li>
-                                <li>Registros de mortalidad oficiales</li>
-                                <li>Datos del Consejo Nacional de Población (CONAPO)</li>
-                            </ul>
-                        </div>
-                        <div class="col-md-6">
-                            <h5>Métodos analíticos:</h5>
-                            <ul>
-                                <li>Estimación de tasas de mortalidad estandarizadas</li>
-                                <li>Análisis espacial con Sistemas de Información Geográfica</li>
-                                <li>Análisis de varianza (ANOVA)</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="key-fact">
-                        <p><i class="fas fa-map-marked-alt"></i> <strong>Análisis espacial:</strong> Se estimaron distancias entre 3,995 localidades y 286 unidades hospitalarias con servicios de neumología.</p>
-                    </div>
-                    
-                    <p><strong>Criterio de acceso restringido:</strong> Distancia superior to 50 km entre centro poblacional y unidad hospitalaria con servicios de neumología.</p>
-                </div>
-                <div class="nav-buttons">
-                    <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
-                    <button class="btn-nav" onclick="nextSlide()">Siguiente <i class="fas fa-arrow-right"></i></button>
-                </div>
-            </div>
-            
-            <!-- Slide 3: Tasas de Mortalidad 2023 -->
-            <div class="slide" id="slide3">
-                <h2 class="slide-title">Tasas de Mortalidad por TB (2023)</h2>
-                <div class="slide-content">
-                    <div class="plot-loading" id="plot-loading">
-                        <div class="spinner"></div>
-                        <p>Cargando visualización interactiva...</p>
-                    </div>
-                    <div id="interactive-plot"></div>
-                    <p class="reference">Fuente: Elaboración propia con datos de SINAIS. Haga clic y arrastre para zoom, doble clic para resetear.</p>
-                    
-                    <div class="key-fact">
-                        <p><i class="fas fa-chart-line"></i> <strong>Promedio nacional 2023:</strong> Hombres: <span id="avg-male">5.25</span>/100,000 hab. | Mujeres: <span id="avg-female">2.54</span>/100,000 hab.</p>
-                    </div>
-                    
-                    <p><strong>Estados con mayor mortalidad:</strong></p>
-                    <ul>
-                        <li>Baja California (11.98 H, 3.75 M)</li>
-                        <li>Nuevo León (9.74 H, 3.28 M)</li>
-                        <li>Sonora (9.69 H, 2.08 M)</li>
-                        <li>Sinaloa (9.72 H, 2.17 M)</li>
-                        <li>Nayarit (7.89 H, 3.25 M)</li>
-                    </ul>
-                    
-                    <p>La mayoría de los estados con alta mortalidad se ubican en la región noroeste del país.</p>
-                </div>
-                <div class="nav-buttons">
-                    <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
-                    <button class="btn-nav" onclick="nextSlide()">Siguiente <i class="fas fa-arrow-right"></i></button>
-                </div>
-            </div>
-            
-            <!-- Slide 4: Distribución por Categorías -->
-            <div class="slide" id="slide4">
-                <h2 class="slide-title">Distribución por Categorías de TB</h2>
-                <div class="slide-content">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-hover">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th>Código CIE-10</th>
-                                    <th>BC (%)</th>
-                                    <th>NL (%)</th>
-                                    <th>Sinaloa (%)</th>
-                                    <th>Sonora (%)</th>
-                                    <th>Nayarit (%)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>A150 (TBP confirmada microscópicamente)</td>
-                                    <td>30.31</td>
-                                    <td>53.99</td>
-                                    <td>21.13</td>
-                                    <td>43.92</td>
-                                    <td>8.51</td>
-                                </tr>
-                                <tr>
-                                    <td>A162 (TBP sin confirmación)</td>
-                                    <td>28.35</td>
-                                    <td>30.03</td>
-                                    <td>54.23</td>
-                                    <td>35.81</td>
-                                    <td>63.83</td>
-                                </tr>
-                                <tr>
-                                    <td>A153 (TBP confirmada por otros métodos)</td>
-                                    <td>22.05</td>
-                                    <td>0.32</td>
-                                    <td>1.41</td>
-                                    <td>3.38</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>A170 (TB meníngea)</td>
-                                    <td>5.51</td>
-                                    <td>3.51</td>
-                                    <td>4.93</td>
-                                    <td>2.70</td>
-                                    <td>6.38</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <p class="reference">Fuente: Elaboración propia con datos de SINAIS</p>
-                    
-                    <div class="key-fact">
-                        <p><i class="fas fa-info-circle"></i> <strong>Hallazgo importante:</strong> Nayarit y Sinaloa presentan alta proporción de casos sin confirmación bacteriológica (A162), sugiriendo limitaciones en capacidades diagnósticas.</p>
-                    </div>
-                </div>
-                <div class="nav-buttons">
-                    <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
-                    <button class="btn-nav" onclick="nextSlide()">Siguiente <i class="fas fa-arrow-right"></i></button>
-                </div>
-            </div>
-            
-            <!-- Slide 5: Acceso a Servicios de Salud -->
-            <div class="slide" id="slide5">
-                <h2 class="slide-title">Acceso a Servicios de Neumología</h2>
-                <div class="slide-content">
-                    <div class="text-center">
-                        <img src="images/DistHub-NEUMOLOGOS-LOC_POP.jpg" alt="Distancias de centros poblacionales a unidades hospitalarias con especialidad en Neumología" class="img-fluid" style="max-height: 400px; width: auto;">
-                        <p class="reference mt-2">Fuente: Elaboración propia con datos de SINAIS</p>
-                    </div>
-                                         
-                    <p>Se identificaron disparidades significativas en el acceso a servicios especializados en neumología:</p>
-                    
-                    <ul>
-                        <li>La región central del país (Morelos, Estado de México, CDMX) presenta mejor acceso</li>
-                        <li>Las entidades con mayor mortalidad (BC, NL, Sinaloa) tienen proporción relativamente baja de población con acceso restringido (≤10%)</li>
-                    </ul>
-                    
-                    <div class="key-fact">
-                        <p><i class="fas fa-lightbulb"></i> <strong>Paradoja:</strong> Estados con alta mortalidad no necesariamente presentan las mayores restricciones de acceso, sugiriendo que otros factores determinantes están involucrados.</p>
-                    </div>
-                </div>
-                <div class="nav-buttons">
-                    <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
-                    <button class="btn-nav" onclick="nextSlide()">Siguiente <i class="fas fa-arrow-right"></i></button>
-                </div>
-            </div>
-            
-            <!-- Slide 6: Tendencias Temporales -->
-            <div class="slide" id="slide6">
-                <h2 class="slide-title">Tendencias Temporales (1998-2023)</h2>
-                <div class="slide-content">
-                    <div class="figure-placeholder">
-                        <p>[Figura 4: Tasa de mortalidad ajustada por estructura de edad por tuberculosis según sexo por entidad federativa 1998-2023]</p>
-                        <p class="reference">Fuente: Elaboración propia con datos de SINAIS 1998-2023</p>
-                    </div>
-                    
-                    <p><strong>Hallazgos principales:</strong></p>
-                    
-                    <ul>
-                        <li>Trayectoria decreciente general en las tasas de mortalidad</li>
-                        <li>Reducciones significativas en algunas entidades:
-                            <ul>
-                                <li>Tlaxcala: -89.75%</li>
-                                <li>Morelos: -73.45%</li>
-                                <li>Aguascalientes: -72.78%</li>
-                                <li>Puebla: -71.57%</li>
-                            </ul>
-                        </li>
-                        <li>Reducciones limitadas en estados con alta mortalidad:
-                            <ul>
-                                <li>Sinaloa: -22.32%</li>
-                                <li>Nuevo León: -22.76%</li>
-                                <li>Sonora: -29.09%</li>
-                                <li>Baja California: -30.93%</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-                <div class="nav-buttons">
-                    <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
-                    <button class="btn-nav" onclick="nextSlide()">Siguiente <i class="fas fa-arrow-right"></i></button>
-                </div>
-            </div>
-            
-            <!-- Slide 7: Edad de Fallecimiento -->
-            <div class="slide" id="slide7">
-                <h2 class="slide-title">Edad de Fallecimiento y Brechas de Género</h2>
-                <div class="slide-content">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="figure-placeholder">
-                                <p>[Figura 5: Distribución de edad media de defunción por tuberculosis por entidad federativa 2023]</p>
-                            </div>
-                            <p class="reference">Fuente: Elaboración propia con datos de SINAIS</p>
-                            
-                            <p><strong>Hallazgos:</strong></p>
-                            <ul>
-                                <li>Edad promedio de fallecimiento: 46-59 años</li>
-                                <li>Baja California, Chihuahua, Sonora y Sinaloa presentan edades significativamente menores que Oaxaca</li>
-                                <li>Baja California: 47 años vs Oaxaca: 57 años (10 años menos)</li>
-                            </ul>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="figure-placeholder">
-                                <p>[Figura 6: Distribución de Edad de Muertes por Tuberculosis en Baja California 2023]</p>
-                            </div>
-                            <p class="reference">Fuente: Estimación propia con datos de SINAIS</p>
-                            
-                            <p><strong>Brechas de género:</strong></p>
-                            <ul>
-                                <li>Baja California presenta la mayor brecha: 9.39/100,000 hab.</li>
-                                <li>En el centro del país, la brecha es prácticamente nula</li>
-                                <li>La mortalidad masculina es hasta 9 veces superior to la femenina en algunos estados</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="nav-buttons">
-                    <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
-                    <button class="btn-nav" onclick="nextSlide()">Siguiente <i class="fas fa-arrow-right"></i></button>
-                </div>
-            </div>
-            
-            <!-- Slide 8: Discusión -->
-            <div class="slide" id="slide8">
-                <h2 class="slide-title">Discusión</h2>
-                <div class="slide-content">
-                    <p>Aunque México tiene una tasa de mortalidad por TB relativamente baja en el contexto latinoamericano (2.16/100,000 hab.), existen disparidades regionales significativas con tasas que superan los dos dígitos en algunas áreas.</p>
-                    
-                    <div class="key-fact">
-                        <p><i class="fas fa-map-pin"></i> <strong>Focos de atención:</strong> Baja California (especialmente Tijuana) requiere atención prioritaria debido a su condición fronteriza, alta movilidad poblacional y presencia de comorbilidades como VIH.</p>
-                    </div>
-                    
-                    <p><strong>Factores determinantes identificados:</strong></p>
-                    <ul>
-                        <li>Condiciones sociales complejas en entornos fronterizos</li>
-                        <li>Movilidad poblacional (ej. trabajadores agrícolas migrantes en Sinaloa)</li>
-                        <li>Comorbilidades (VIH)</li>
-                        <li>Factores de riesgo en población en edad productiva</li>
-                    </ul>
-                    
-                    <p>El acceso a servicios de salud especializados es importante, pero no es el único factor determinante en los patrones de mortalidad por TB.</p>
-                </div>
-                <div class="nav-buttons">
-                    <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
-                    <button class="btn-nav" onclick="nextSlide()">Siguiente <i class="fas fa-arrow-right"></i></button>
-                </div>
-            </div>
-            
-            <!-- Slide 9: Conclusiones -->
-            <div class="slide" id="slide9">
-                <h2 class="slide-title">Conclusiones y Recomendaciones</h2>
-                <div class="slide-content">
-                    <p>La evidencia sugiere la necesidad de implementar estrategias diferenciadas según las características específicas de cada región:</p>
-                    
-                    <div class="key-fact">
-                        <p><i class="fas fa-clipboard-list"></i> <strong>Grupos de entidades identificadas:</strong></p>
-                    </div>
-                    
-                    <ol>
-                        <li><strong>Grupo 1:</strong> Entidades con problemas de acceso (ej. Sonora) → Esfuerzos para incrementar capacidades de diagnóstico e infraestructura</li>
-                        <li><strong>Grupo 2:</strong> Entidades con dinámica poblacional compleja (ej. Baja California) → Monitoreo clínico de comorbilidades</li>
-                        <li><strong>Grupo 3:</strong> Entidades con acceso favorable pero alta mortalidad (ej. Sinaloa) → Estrategias específicas por contextos sociales</li>
-                    </ol>
-                    
-                    <p>El cumplimiento de las metas de la estrategia "Fin a la Tuberculosis 2030" depende del conocimiento particular de la situación a escala regional and el diseño de esquemas de atención diferenciados.</p>
-                    
-                    <p>Se requieren esfuerzos focalizados en las áreas de mayor mortalidad, considerando los determinantes sociales específicos de cada región.</p>
-                </div>
-                <div class="nav-buttons">
-                    <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
-                    <button class="btn-nav" onclick="nextSlide()">Siguiente <i class="fas fa-arrow-right"></i></button>
-                </div>
-            </div>
-            
-            <!-- Slide 10: Contacto -->
-            <div class="slide" id="slide10">
-                <h2 class="slide-title">Contacto y Agradecimientos</h2>
-                <div class="slide-content text-center">
-                    <div class="my-5 py-4">
-                        <h3>Dr. José Luis Manzanares Rivera</h3>
-                        <p class="lead">Investigador Principal</p>
-                        
-                        <div class="mt-4">
-                            <p><i class="fas fa-envelope"></i> Email: jmanuel@example.com</p>
-                            <p><i class="fas fa-university"></i> Institución: Por especificar</p>
-                        </div>
-                    </div>
-                    
-                    <div class="my-5">
-                        <h4>Agradecimientos</h4>
-                        <p>A los organismos que proporcionaron los datos para esta investigación:</p>
-                        <ul class="list-unstyled">
-                            <li>Sistema Nacional de Información en Salud (SINAIS)</li>
-                            <li>Consejo Nacional de Población (CONAPO)</li>
-                            <li>Centro Nacional de Programas Preventivos y Control de Enfermedades (CENAPRECE)</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="mt-5">
-                        <p><strong>Presentación basada en la investigación:</strong> "Distribución espacial de la mortalidad por tuberculosis en México 1998-2023"</p>
-                    </div>
-                    </div>
-                <div class="nav-buttons">
-                    <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
-                    <button class="btn-nav" onclick="goToFirstSlide()">Volver al inicio</button>
-                </div>
-            </div>
-        </div>
-        
-        <footer class="text-center mt-4 pt-3 border-top">
-            <p>© 2023 - Investigación sobre Distribución Espacial de la Mortalidad por Tuberculosis en México</p>
-        </footer>
-    </div>
+<!-- Add DataTables CSS and JS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 
-    <script>
-        let currentSlide = 1;
-        const totalSlides = 10;
-        
-        function updateProgressBar() {
-            const progress = (currentSlide / totalSlides) * 100;
-            document.getElementById('progress-bar').style.width = `${progress}%`;
-        }
-        
-        function showSlide(n) {
-            document.querySelectorAll('.slide').forEach(slide => {
-                slide.classList.remove('active');
-            });
-            
-            document.getElementById(`slide${n}`).classList.add('active');
-            currentSlide = n;
-            updateProgressBar();
-            
-            // Load the interactive plot when reaching slide 3
-            if (n === 3 && !window.plotLoaded) {
-                loadInteractivePlot();
-            }
-        }
-        
-        function nextSlide() {
-            if (currentSlide < totalSlides) {
-                showSlide(currentSlide + 1);
-            }
-        }
-        
-        function prevSlide() {
-            if (currentSlide > 1) {
-                showSlide(currentSlide - 1);
-            }
-        }
-        
-        function goToFirstSlide() {
-            showSlide(1);
-        }
-        
-        // Keyboard navigation
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'ArrowRight') {
-                nextSlide();
-            } else if (event.key === 'ArrowLeft') {
-                prevSlide();
-            }
-        });
-        
-        // Initialize progress bar
-        updateProgressBar();
-        
-        // Actual data from the CSV file
-        const csvData = [
-            {AAMR_Hombres: 4.156955000571356, AAMR_Mujeres: 5.811033926017766, AAMR_Total: 4.983994463294561},
-            {AAMR_Hombres: 11.985530210780617, AAMR_Mujeres: 3.7533971476015386, AAMR_Total: 7.869463679191078},
-            {AAMR_Hombres: 7.847677441584021, AAMR_Mujeres: 5.167105916637567, AAMR_Total: 6.507391679110794},
-            {AAMR_Hombres: 5.965460882330573, AAMR_Mujeres: 3.932723725981111, AAMR_Total: 4.949092304155842},
-            {AAMR_Hombres: 4.9324577852064415, AAMR_Mujeres: 3.030690962046742, AAMR_Total: 3.981574373626592},
-            {AAMR_Hombres: 7.378784522144514, AAMR_Mujeres: 5.313325092188772, AAMR_Total: 6.346054807166643},
-            {AAMR_Hombres: 5.426809910711581, AAMR_Mujeres: 2.6315195279257, AAMR_Total: 4.029164719318641},
-            {AAMR_Hombres: 4.576220490752106, AAMR_Mujeres: 1.800562224703523, AAMR_Total: 3.1883913577278142},
-            {AAMR_Hombres: 1.712065651670245, AAMR_Mujeres: 0.6867466080817166, AAMR_Total: 1.1994061298759808},
-            {AAMR_Hombres: 4.139168576178782, AAMR_Mujeres: 2.2787844990364046, AAMR_Total: 3.208976537607593},
-            {AAMR_Hombres: 1.4161905870426343, AAMR_Mujeres: 1.0236379339807204, AAMR_Total: 1.2199142605116773},
-            {AAMR_Hombres: 4.4543677904560095, AAMR_Mujeres: 2.3958417867024813, AAMR_Total: 3.4251047885792456},
-            {AAMR_Hombres: 3.1675214057136625, AAMR_Mujeres: 1.1239866612841587, AAMR_Total: 2.1457540334989105},
-            {AAMR_Hombres: 3.112048065265241, AAMR_Mujeres: 1.2917674851097343, AAMR_Total: 2.201907775187488},
-            {AAMR_Hombres: 1.0610717498311628, AAMR_Mujeres: 0.90890829477354, AAMR_Total: 0.9849900223023513},
-            {AAMR_Hombres: 1.9016004675901854, AAMR_Mujeres: 1.1930506829897363, AAMR_Total: 1.5473255752899608},
-            {AAMR_Hombres: 4.403938155317023, AAMR_Mujeres: 3.2913017543769243, AAMR_Total: 3.847619954846974},
-            {AAMR_Hombres: 7.899734000011045, AAMR_Mujeres: 3.250134607754124, AAMR_Total: 5.574934303882585},
-            {AAMR_Hombres: 9.74330827163057, AAMR_Mujeres: 3.235730566405475, AAMR_Total: 6.4895194190180225},
-            {AAMR_Hombres: 4.2513943190291945, AAMR_Mujeres: 2.319989642577284, AAMR_Total: 3.2856919808032394},
-            {AAMR_Hombres: 1.8866381577928166, AAMR_Mujeres: 0.9456564993002015, AAMR_Total: 1.4161473285465092},
-            {AAMR_Hombres: 7.161201867666059, AAMR_Mujeres: 1.6905681963940378, AAMR_Total: 4.425885032030049},
-            {AAMR_Hombres: 7.829848200999272, AAMR_Mujeres: 3.028875043905787, AAMR_Total: 5.42936162245253},
-            {AAMR_Hombres: 4.7828793005487045, AAMR_Mujeres: 2.341931413708013, AAMR_Total: 3.562405357128359},
-            {AAMR_Hombres: 9.724972746197375, AAMR_Mujeres: 2.1784458301213494, AAMR_Total: 5.951709288159362},
-            {AAMR_Hombres: 9.692036067340734, AAMR_Mujeres: 2.0889420146544313, AAMR_Total: 5.890489040997583},
-            {AAMR_Hombres: 6.325068479494398, AAMR_Mujeres: 2.12534720327663, AAMR_Total: 4.225207841385513},
-            {AAMR_Hombres: 7.209608117932484, AAMR_Mujeres: 2.2816033906465143, AAMR_Total: 4.745605754289499},
-            {AAMR_Hombres: 1.57870640796931, AAMR_Mujeres: 1.6032064128256514, AAMR_Total: 1.5909564103974807},
-            {AAMR_Hombres: 4.694747975578058, AAMR_Mujeres: 1.6069287697433765, AAMR_Total: 3.150838372660717},
-            {AAMR_Hombres: 3.2721700815042767, AAMR_Mujeres: 1.3737740387781172, AAMR_Total: 2.322972060141197},
-            {AAMR_Hombres: 4.41185262924112, AAMR_Mujeres: 2.4982061465354044, AAMR_Total: 3.4550293878882625}
-        ];
-        
-        // State names mapping
-        const stateNames = [
-            "Aguascalientes", "BC", "BCS", "Campeche", "Coahuila", "Colima", "Chiapas",
-            "Chihuahua", "CDMX", "Durango", "Guanajuato", "Guerrero", "Hidalgo", "Jalisco",
-            "EdoMx", "Michoacán", "Morelos", "Nayarit", "Nuevo León", "Oaxaca", "Puebla",
-            "Querétaro", "Quintana Roo", "SLP", "Sinaloa", "Sonora", "Tabasco", "Tamaulipas",
-            "Tlaxcala", "Veracruz", "Yucatán", "Zacatecas"
-        ];
-        
-        // Function to load and create the interactive plot
-        function loadInteractivePlot() {
-            try {
-                window.plotLoaded = true;
-                document.getElementById('plot-loading').style.display = 'none';
-                createInteractivePlot(csvData);
-            } catch (error) {
-                console.error('Error creating plot:', error);
-                document.getElementById('plot-loading').innerHTML = 
-                    '<p>Error creando la visualización. Por favor, intente recargar la página.</p>';
-            }
-        }
-        
-        function createInteractivePlot(data) {
-            // Process the data
-            const df = data.map((row, index) => {
-                return {
-                    State_Name: stateNames[index],
-                    AAMR_Hombres: row.AAMR_Hombres,
-                    AAMR_Mujeres: row.AAMR_Mujeres,
-                    AAMR_Total: row.AAMR_Total,
-                    Gender_Gap: row.AAMR_Hombres - row.AAMR_Mujeres
-                };
-            });
-            
-            // Sort by AAMR_Hombres in ASCENDING order
-            df.sort((a, b) => a.AAMR_Hombres - b.AAMR_Hombres);
-            
-            // Calculate national averages
-            const nat_avg_m = df.reduce((sum, row) => sum + row.AAMR_Hombres, 0) / df.length;
-            const nat_avg_f = df.reduce((sum, row) => sum + row.AAMR_Mujeres, 0) / df.length;
-            
-            // Update the averages in the text
-            document.getElementById('avg-male').textContent = nat_avg_m.toFixed(2);
-            document.getElementById('avg-female').textContent = nat_avg_f.toFixed(2);
-            
-            // Create traces for the plot
-            const traces = [];
-            
-            // Add lines connecting men and women values
-            df.forEach(row => {
-                traces.push({
-                    x: [row.AAMR_Hombres, row.AAMR_Mujeres],
-                    y: [row.State_Name, row.State_Name],
-                    mode: 'lines',
-                    line: { color: 'gray', width: 1, opacity: 0.3 },
-                    showlegend: false,
-                    hoverinfo: 'none'
-                });
-            });
-            
-            // Add markers for men
-            traces.push({
-                x: df.map(row => row.AAMR_Hombres),
-                y: df.map(row => row.State_Name),
-                mode: 'markers',
-                name: 'Hombres',
-                marker: {
-                    color: '#1f77b4',
-                    size: 10,
-                    line: { color: 'black', width: 1 }
-                },
-                hovertemplate: 
-                    '<b>%{customdata[0]}</b><br>' +
-                    'Tasa Hombres: %{x:.2f}<br>' +
-                    'Tasa Mujeres: %{customdata[1]:.2f}<br>' +
-                    'Brecha de Género: %{customdata[2]:.2f}<br>' +
-                    'Tasa Total: %{customdata[3]:.2f}<extra></extra>',
-                customdata: df.map(row => [
-                    row.State_Name, 
-                    row.AAMR_Mujeres, 
-                    row.Gender_Gap, 
-                    row.AAMR_Total
-                ])
-            });
-            
-            // Add markers for women
-            traces.push({
-                x: df.map(row => row.AAMR_Mujeres),
-                y: df.map(row => row.State_Name),
-                mode: 'markers',
-                name: 'Mujeres',
-                marker: {
-                    color: '#ff7f0e',
-                    size: 10,
-                    symbol: 'square',
-                    line: { color: 'black', width: 1 }
-                },
-                hovertemplate: 
-                    '<b>%{customdata[0]}</b><br>' +
-                    'Tasa Mujeres: %{x:.2f}<br>' +
-                    'Tasa Hombres: %{customdata[1]:.2f}<br>' +
-                    'Brecha de Género: %{customdata[2]:.2f}<br>' +
-                    'Tasa Total: %{customdata[3]:.2f}<extra></extra>',
-                customdata: df.map(row => [
-                    row.State_Name, 
-                    row.AAMR_Hombres, 
-                    row.Gender_Gap, 
-                    row.AAMR_Total
-                ])
-            });
-            
-            // Create layout
-            const layout = {
-                title: {
-                    text: '', // Removed title as requested
-                    font: { size: 16 }
-                },
-                xaxis: {
-                    title: 'Tasa de Mortalidad Ajustada por Edad por TB (100,000 habitantes)',
-                    showgrid: true,
-                    gridcolor: 'rgba(0,0,0,0.1)',
-                    zeroline: false
-                },
-                yaxis: {
-                    title: 'Estado',
-                    automargin: true,
-                    tickmode: 'array',
-                    tickvals: df.map((_, i) => i),
-                    ticktext: df.map(row => row.State_Name)
-                },
-                height: 600,
-                showlegend: true,
-                legend: {
-                    orientation: 'h',
-                    yanchor: 'bottom',
-                    y: 1.02,
-                    xanchor: 'right',
-                    x: 1
-                },
-                hovermode: 'closest',
-                margin: { l: 150, r: 50, t: 50, b: 80 }, // Reduced top margin since title is removed
-                shapes: [
-                    // Average men line
-                    {
-                        type: 'line',
-                        x0: nat_avg_m,
-                        y0: -0.5,
-                        x1: nat_avg_m,
-                        y1: df.length - 0.5,
-                        line: {
-                            color: '#1f77b4',
-                            width: 1.5,
-                            dash: 'solid'
-                        }
-                    },
-                    // Average women line
-                    {
-                        type: 'line',
-                        x0: nat_avg_f,
-                        y0: -0.5,
-                        x1: nat_avg_f,
-                        y1: df.length - 0.5,
-                        line: {
-                            color: '#ff7f0e',
-                            width: 1.5,
-                            dash: 'solid'
-                        }
-                    },
-                    // OMS reference line
-                    {
-                        type: 'line',
-                        x0: 1.8,
-                        y0: -0.5,
-                        x1: 1.8,
-                        y1: df.length - 0.5,
-                        line: {
-                            color: 'black',
-                            width: 1.5,
-                            dash: 'dot'
-                        }
-                    },
-                    // CONAPO reference line
-                    {
-                        type: 'line',
-                        x0: 2.16,
-                        y0: -0.5,
-                        x1: 2.16,
-                        y1: df.length - 0.5,
-                        line: {
-                            color: 'gray',
-                            width: 1.5,
-                            dash: 'dash'
-                        }
-                    }
-                ],
-                annotations: [
-                    {
-                        x: nat_avg_m,
-                        y: df.length - 1,
-                        text: `Promedio Hombres: ${nat_avg_m.toFixed(2)}`,
-                        showarrow: false,
-                        xanchor: 'left',
-                        font: { color: '#1f77b4' },
-                        bgcolor: 'white',
-                        bordercolor: '#1f77b4',
-                        borderwidth: 1,
-                        borderpad: 4
-                    },
-                    {
-                        x: nat_avg_f,
-                        y: df.length - 2,
-                        text: `Promedio Mujeres: ${nat_avg_f.toFixed(2)}`,
-                        showarrow: false,
-                        xanchor: 'left',
-                        font: { color: '#ff7f0e' },
-                        bgcolor: 'white',
-                        bordercolor: '#ff7f0e',
-                        borderwidth: 1,
-                        borderpad: 4
-                    },
-                    {
-                        x: 1.8,
-                        y: 0,
-                        text: 'OMS: 1.8',
-                        showarrow: false,
-                        xanchor: 'left',
-                        font: { size: 10 },
-                        bgcolor: 'white',
-                        bordercolor: 'black',
-                        borderwidth: 1,
-                        borderpad: 4
-                    },
-                    {
-                        x: 2.16,
-                        y: 1,
-                        text: 'México (CONAPO): 2.16',
-                        showarrow: false,
-                        xanchor: 'right',
-                        font: { size: 10, color: 'gray' },
-                        bgcolor: 'white',
-                        bordercolor: 'gray',
-                        borderwidth: 1,
-                        borderpad: 4
-                    }
-                ]
-            };
-            
-            // Create the plot
-            Plotly.newPlot('interactive-plot', traces, layout, {
-                responsive: true,
-                displayModeBar: true,
-                displaylogo: false,
-                modeBarButtonsToAdd: [
-                    {
-                        name: 'Download Plot',
-                        icon: Plotly.Icons.camera,
-                        click: function(gd) {
-                            Plotly.downloadImage(gd, {
-                                format: 'png',
-                                width: 1200,
-                                height: 800,
-                                filename: 'TB_tasas_sex2023'
-                            });
-                        }
-                    }
-                ],
-                modeBarButtonsToRemove: ['pan2d', 'lasso2d', 'select2d']
-            });
-        }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<!-- Replace the existing table in slide 4 with this code -->
+<div class="table-responsive">
+    <table id="tb-categories-table" class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Código CIE-10</th>
+                <th>BC (%)</th>
+                <th>NL (%)</th>
+                <th>Sinaloa (%)</th>
+                <th>Sonora (%)</th>
+                <th>Nayarit (%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>A150 (TBP confirmada microscópicamente)</td>
+                <td>30.31</td>
+                <td>53.99</td>
+                <td>21.13</td>
+                <td>43.92</td>
+                <td>8.51</td>
+            </tr>
+            <tr>
+                <td>A162 (TBP sin confirmación)</td>
+                <td>28.35</td>
+                <td>30.03</td>
+                <td>54.23</td>
+                <td>35.81</td>
+                <td>63.83</td>
+            </tr>
+            <tr>
+                <td>A153 (TBP confirmada por otros métodos)</td>
+                <td>22.05</td>
+                <td>0.32</td>
+                <td>1.41</td>
+                <td>3.38</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>A170 (TB meníngea)</td>
+                <td>5.51</td>
+                <td>3.51</td>
+                <td>4.93</td>
+                <td>2.70</td>
+                <td>6.38</td>
+            </tr>
+            <tr>
+                <td>A199 (TB no especificada)</td>
+                <td>3.54</td>
+                <td>3.19</td>
+                <td>0.70</td>
+                <td>4.05</td>
+                <td>2.13</td>
+            </tr>
+            <tr>
+                <td>A169 (TB del sistema nervioso no especificada)</td>
+                <td>1.57</td>
+                <td>1.60</td>
+                <td>4.93</td>
+                <td>2.03</td>
+                <td>8.51</td>
+            </tr>
+            <tr>
+                <td>A156 (TB ganglionar)</td>
+                <td>1.18</td>
+                <td>0.64</td>
+                <td>0</td>
+                <td>0.68</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>A165 (TB de órganos genitourinarios)</td>
+                <td>1.18</td>
+                <td>0.32</td>
+                <td>0</td>
+                <td>0.68</td>
+                <td>2.13</td>
+            </tr>
+            <tr>
+                <td>A179 (TB del sistema nervioso no especificada)</td>
+                <td>1.18</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0.68</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>A151 (TB confirmada histológicamente)</td>
+                <td>0.79</td>
+                <td>0.64</td>
+                <td>0.70</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>A152 (TB confirmada por métodos no especificados)</td>
+                <td>4.34</td>
+                <td>5.76</td>
+                <td>11.97</td>
+                <td>6.07</td>
+                <td>8.51</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
