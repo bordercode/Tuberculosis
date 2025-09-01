@@ -54,10 +54,18 @@
             font-size: 1.1rem;
         }
         
-        .nav-buttons {
+        /* FIXED NAVIGATION STYLES */
+        .nav-buttons-container {
             display: flex;
             justify-content: space-between;
             margin-top: 20px;
+            position: sticky;
+            bottom: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
         }
         
         .btn-nav {
@@ -89,6 +97,7 @@
             transition: width 0.3s ease;
         }
         
+        /* Other styles remain the same */
         .figure-placeholder {
             background-color: #f1f1f1;
             border: 1px dashed #ccc;
@@ -231,6 +240,16 @@
                 padding: 8px 10px;
                 font-size: 0.9rem;
             }
+            
+            .nav-buttons-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .btn-nav {
+                width: 100%;
+                text-align: center;
+            }
         }
     </style>
 </head>
@@ -261,11 +280,7 @@
                     
                     <p>La heterogeneidad de condiciones sociales, infraestructura hospitalaria y disponibilidad de personal especializado generan importantes desafíos para el control de esta enfermedad.</p>
                     
-                    <p><strong>Objetivo principal:</strong> Analizar la distribución espacial y temporal de la mortalidad por TB en México entre 1998-2023 para identificar barreras en el acceso a servicios de diagnóstico y tratamiento.</p>
-                </div>
-                <div class="nav-buttons">
-                    <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
-                    <button class="btn-nav" onclick="nextSlide()">Siguiente <i class="fas fa-arrow-right"></i></button>
+                    <p><strong>Objetivo principal:</strong> Analizar la distribución espacial y temporal de la mortalidad por TB en México entre 1998-2023 para identificar barreras en el acceso a servicios de diagnóstico và tratamiento.</p>
                 </div>
             </div>
             
@@ -300,10 +315,6 @@
                     
                     <p><strong>Criterio de acceso restringido:</strong> Distancia superior a 50 km entre centro poblacional y unidad hospitalaria con servicios de neumología.</p>
                 </div>
-                <div class="nav-buttons">
-                    <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
-                    <button class="btn-nav" onclick="nextSlide()">Siguiente <i class="fas fa-arrow-right"></i></button>
-                </div>
             </div>
             
             <!-- Slide 3: Tasas de Mortalidad 2023 -->
@@ -331,10 +342,6 @@
                     </ul>
                     
                     <p>La mayoría de los estados con alta mortalidad se ubican en la región noroeste del país.</p>
-                </div>
-                <div class="nav-buttons">
-                    <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
-                    <button class="btn-nav" onclick="nextSlide()">Siguiente <i class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
             
@@ -460,10 +467,6 @@
                         <p><i class="fas fa-info-circle"></i> <strong>Hallazgo importante:</strong> Nayarit y Sinaloa presentan alta proporción de casos sin confirmación bacteriológica (A162), sugiriendo limitaciones en capacidades diagnósticas.</p>
                     </div>
                 </div>
-                <div class="nav-buttons">
-                    <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
-                    <button class="btn-nav" onclick="nextSlide()">Siguiente <i class="fas fa-arrow-right"></i></button>
-                </div>
             </div>
             
             <!-- Slide 5: Acceso a Servicios de Salud -->
@@ -486,21 +489,17 @@
                         <p><i class="fas fa-lightbulb"></i> <strong>Paradoja:</strong> Estados con alta mortalidad no necesariamente presentan las mayores restricciones de acceso, sugiriendo que otros factores determinantes están involucrados.</p>
                     </div>
                 </div>
-                <div class="nav-buttons">
-                    <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
-                    <button class="btn-nav" onclick="nextSlide()">Siguiente <i class="fas fa-arrow-right"></i></button>
-                </div>
             </div>
             
-            <!-- NEW SLIDE: Access to Pneumology Services -->
+            <!-- Slide 6: Access to Pneumology Services -->
             <div class="slide" id="slide6">
                 <h2 class="slide-title">Acceso Restringido a Servicios de Neumología</h2>
                 <div class="slide-content">
-                          <img src="images/Acceso_vs_tasas.png" alt="Tasa de mortalidad ajustada por estructura de edad por tuberculosis según sexo por entidad federativa 1998-2023" class="img-fluid" style="max-height: 800px; width: auto;"> 
-                                <p class="reference mt-2">Fuente: Elaboración propia con datos de SINAIS, CONAPO INEGI</p>
-                                   
+                    <img src="images/Acceso_vs_tasas.png" alt="Tasa de mortalidad ajustada por estructura de edad por tuberculosis según sexo por entidad federativa 1998-2023" class="img-fluid" style="max-height: 800px; width: auto;"> 
+                    <p class="reference mt-2">Fuente: Elaboración propia con datos de SINAIS, CONAPO INEGI</p>
+                                       
                     <a href="plots/interactive_plot.html" target="_blank">View Interactive Plot</a>
-                           </div>
+                    
                     <div class="key-fact">
                         <p><i class="fas fa-map-marker-alt"></i> <strong>Análisis de acceso restringido:</strong> La relación entre distancia media a hospitales y población con acceso restringido muestra patrones diferenciados entre entidades federativas.</p>
                     </div>
@@ -515,19 +514,14 @@
                     
                     <p>Estos hallazgos sugieren que, si bien el acceso a servicios especializados es un factor importante, no es el único determinante de las tasas de mortalidad por tuberculosis. Se requieren estrategias diferenciadas que consideren los contextos sociales específicos de cada región.</p>
                 </div>
-                <div class="nav-buttons">
-                    <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
-                    <button class="btn-nav" onclick="nextSlide()">Siguiente <i class="fas fa-arrow-right"></i></button>
-                </div>
             </div>
             
-<!-- Slide 7: Tendencias Temporales (renumbered from original slide 6) -->
+            <!-- Slide 7: Tendencias Temporales -->
             <div class="slide" id="slide7">
                 <h2 class="slide-title">Tendencias Temporales (1998-2023)</h2>
                 <div class="slide-content">
                     <img src="images/TB-MX1998-2023.jpg" alt="Tasa de mortalidad ajustada por estructura de edad por tuberculosis según sexo por entidad federativa 1998-2023" class="img-fluid" style="max-height: 91%; width: auto;">
-                                <p class="reference mt-2">Figura 4: Tasa de mortalidad ajustada por estructura de edad por tuberculosis según sexo por entidad federativa 1998-2023</p>
-                            </div>
+                    <p class="reference mt-2">Figura 4: Tasa de mortalidad ajustada por estructura de edad por tuberculosis según sexo por entidad federativa 1998-2023</p>
                     
                     <p><strong>Hallazgos principales:</strong></p>
                     
@@ -551,13 +545,9 @@
                         </li>
                     </ul>
                 </div>
-                <div class="nav-buttons">
-                    <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
-                    <button class="btn-nav" onclick="nextSlide()">Siguiente <i class="fas fa-arrow-right"></i></button>
-                </div>
             </div>
             
-            <!-- Slide 8: Edad de Fallecimiento (renumbered from original slide 7) -->
+            <!-- Slide 8: Edad de Fallecimiento -->
             <div class="slide" id="slide8">
                 <h2 class="slide-title">Edad de Fallecimiento y Brechas de Género</h2>
                 <div class="slide-content">
@@ -590,13 +580,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="nav-buttons">
-                    <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
-                    <button class="btn-nav" onclick="nextSlide()">Siguiente <i class="fas fa-arrow-right"></i></button>
-                </div>
             </div>
             
-            <!-- Slide 9: Discusión (renumbered from original slide 8) -->
+            <!-- Slide 9: Discusión -->
             <div class="slide" id="slide9">
                 <h2 class="slide-title">Discusión</h2>
                 <div class="slide-content">
@@ -616,13 +602,9 @@
                     
                     <p>El acceso a servicios de salud especializados es importante, pero no es el único factor determinante en los patrones de mortalidad por TB.</p>
                 </div>
-                <div class="nav-buttons">
-                    <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
-                    <button class="btn-nav" onclick="nextSlide()">Siguiente <i class="fas fa-arrow-right"></i></button>
-                </div>
             </div>
             
-            <!-- Slide 10: Conclusiones (renumbered from original slide 9) -->
+            <!-- Slide 10: Conclusiones -->
             <div class="slide" id="slide10">
                 <h2 class="slide-title">Conclusiones y Recomendaciones</h2>
                 <div class="slide-content">
@@ -642,13 +624,9 @@
                     
                     <p>Se requieren esfuerzos focalizados en las áreas de mayor mortalidad, considerando los determinantes sociales específicos de cada región.</p>
                 </div>
-                <div class="nav-buttons">
-                    <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
-                    <button class="btn-nav" onclick="nextSlide()">Siguiente <i class="fas fa-arrow-right"></i></button>
-                </div>
             </div>
             
-            <!-- Slide 11: Contacto (renumbered from original slide 10) -->
+            <!-- Slide 11: Contacto -->
             <div class="slide" id="slide11">
                 <h2 class="slide-title">Contacto y Agradecimientos</h2>
                 <div class="slide-content text-center">
@@ -676,25 +654,33 @@
                         <p><strong>Presentación basada en la investigación:</strong> "Distribución espacial de la mortalidad por tuberculosis en México 1998-2023"</p>
                     </div>
                 </div>
-                <div class="nav-buttons">
-                    <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
-                    <button class="btn-nav" onclick="goToFirstSlide()">Volver al inicio</button>
-                </div>
+            </div>
+            
+            <!-- SINGLE NAVIGATION BUTTONS CONTAINER (FIXED) -->
+            <div class="nav-buttons-container" id="nav-buttons-container">
+                <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
+                <span id="slide-counter">Slide 1 de 11</span>
+                <button class="btn-nav" onclick="nextSlide()">Siguiente <i class="fas fa-arrow-right"></i></button>
             </div>
         </div>
         
-        <footer class="text-center mt-4 pt-3 border-top">
+        <!-- Footer only shown on slide 11 -->
+        <footer class="text-center mt-4 pt-3 border-top" id="main-footer" style="display: none;">
             <p>© 2025 - Dissclaimer: Research conducted at El Colegio de la Frontera Norte Nogales. Analysis and opinions expressed are the author's responsibility and does not necessarily reflect an institutional position on the matter. Copyright © 2025.All graphic materials used in this academic presentation are intended for educational purposes only and are used under a total non-for-profit research setting. analisis-de-datos-parael-bienpúblico was made with  by José Luis Manzanares Rivera</p>
         </footer>
     </div>
 
     <script>
         let currentSlide = 1;
-        const totalSlides = 11; // Updated to 11 slides
+        const totalSlides = 11;
         
         function updateProgressBar() {
             const progress = (currentSlide / totalSlides) * 100;
             document.getElementById('progress-bar').style.width = `${progress}%`;
+        }
+        
+        function updateSlideCounter() {
+            document.getElementById('slide-counter').textContent = `Slide ${currentSlide} de ${totalSlides}`;
         }
         
         function showSlide(n) {
@@ -705,6 +691,15 @@
             document.getElementById(`slide${n}`).classList.add('active');
             currentSlide = n;
             updateProgressBar();
+            updateSlideCounter();
+            
+            // Show/hide footer based on current slide
+            const footer = document.getElementById('main-footer');
+            if (n === 11) {
+                footer.style.display = 'block';
+            } else {
+                footer.style.display = 'none';
+            }
             
             // Load the interactive plot when reaching slide 3
             if (n === 3 && !window.plotLoaded) {
@@ -741,8 +736,9 @@
             }
         });
         
-        // Initialize progress bar
+        // Initialize progress bar and slide counter
         updateProgressBar();
+        updateSlideCounter();
         
         // Actual data from the CSV file
         const csvData = [
