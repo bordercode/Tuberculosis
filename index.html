@@ -1120,14 +1120,16 @@
                 hovertemplate: 
                     '<b>%{text}</b><br>' +
                     'Distancia media: %{x:.1f} km<br>' +
-                    'Población con acceso restringido: %{y:.1f}%<extra></extra>',
-                customdata: data.map(d => d.NOM_ENT)
+                    'Población con acceso restringido: %{y:.1f}%<extra></extra>' +
+                    'Tasa mortalidad TB: %{customdata[1]:.2f}/100,000 hab.<extra></extra>',
+                    
+                customdata: data.map(d => [d.Distance, d.Mortality])
             };
             
             // Create layout
             const layout = {
                 title: {
-                    text: 'Población con acceso restringido por entidad federativa en relación a la distancia media a hospitales con servicios de neumología (2023)',
+                    text: '',
                     font: { size: 16 }
                 },
                 xaxis: {
