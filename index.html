@@ -6,6 +6,7 @@
     <title>Distribución espacial de la mortalidad por tuberculosis en México 1998-2023</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
     <style>
         :root {
             --primary-color: #3498db;
@@ -118,6 +119,35 @@
             margin: 15px 0;
         }
         
+        #interactive-plot {
+            width: 100%;
+            height: 600px;
+            margin: 20px 0;
+        }
+        
+        .plot-loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+            flex-direction: column;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
         @media (max-width: 768px) {
             .slide {
                 padding: 15px;
@@ -125,6 +155,10 @@
             
             .slide-title {
                 font-size: 1.5rem;
+            }
+            
+            #interactive-plot {
+                height: 500px;
             }
         }
     </style>
@@ -193,7 +227,7 @@
                         <p><i class="fas fa-map-marked-alt"></i> <strong>Análisis espacial:</strong> Se estimaron distancias entre 3,995 localidades y 286 unidades hospitalarias con servicios de neumología.</p>
                     </div>
                     
-                    <p><strong>Criterio de acceso restringido:</strong> Distancia superior a 50 km entre centro poblacional y unidad hospitalaria con servicios de neumología.</p>
+                    <p><strong>Criterio de acceso restringido:</strong> Distancia superior to 50 km entre centro poblacional y unidad hospitalaria con servicios de neumología.</p>
                 </div>
                 <div class="nav-buttons">
                     <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
@@ -204,14 +238,16 @@
             <!-- Slide 3: Tasas de Mortalidad 2023 -->
             <div class="slide" id="slide3">
                 <h2 class="slide-title">Tasas de Mortalidad por TB (2023)</h2>
-<div class="slide-content">
-    <div class="text-center">
-        <img src="images/TB_tasas_sex2022.png" alt="Tasas de mortalidad por Tuberculosis ajustada por estructura de edad según sexo por estado 2023" class="img-fluid" style="max-height: 400px; width: auto;">
-        <p class="reference mt-2">Fuente: Elaboración propia con datos de SINAIS</p>
-    </div>
+                <div class="slide-content">
+                    <div class="plot-loading" id="plot-loading">
+                        <div class="spinner"></div>
+                        <p>Cargando visualización interactiva...</p>
+                    </div>
+                    <div id="interactive-plot"></div>
+                    <p class="reference">Fuente: Elaboración propia con datos de SINAIS. Haga clic y arrastre para zoom, doble clic para resetear.</p>
                     
                     <div class="key-fact">
-                        <p><i class="fas fa-chart-line"></i> <strong>Promedio nacional 2023:</strong> Hombres: 5.25/100,000 hab. | Mujeres: 2.54/100,000 hab.</p>
+                        <p><i class="fas fa-chart-line"></i> <strong>Promedio nacional 2023:</strong> Hombres: <span id="avg-male">5.25</span>/100,000 hab. | Mujeres: <span id="avg-female">2.54</span>/100,000 hab.</p>
                     </div>
                     
                     <p><strong>Estados con mayor mortalidad:</strong></p>
@@ -300,10 +336,10 @@
                 <h2 class="slide-title">Acceso a Servicios de Neumología</h2>
                 <div class="slide-content">
                     <div class="text-center">
-        <img src="images/DistHub-NEUMOLOGOS-LOC_POP.jpg" alt="Distancias de centros poblacionales a unidades hospitalarias con especialidad en Neumología" class="img-fluid" style="max-height: 400px; width: auto;">
-        <p class="reference mt-2">Fuente: Elaboración propia con datos de SINAIS</p>
-    </div>
-                                     
+                        <img src="images/DistHub-NEUMOLOGOS-LOC_POP.jpg" alt="Distancias de centros poblacionales a unidades hospitalarias con especialidad en Neumología" class="img-fluid" style="max-height: 400px; width: auto;">
+                        <p class="reference mt-2">Fuente: Elaboración propia con datos de SINAIS</p>
+                    </div>
+                                         
                     <p>Se identificaron disparidades significativas en el acceso a servicios especializados en neumología:</p>
                     
                     <ul>
@@ -386,7 +422,7 @@
                             <ul>
                                 <li>Baja California presenta la mayor brecha: 9.39/100,000 hab.</li>
                                 <li>En el centro del país, la brecha es prácticamente nula</li>
-                                <li>La mortalidad masculina es hasta 9 veces superior a la femenina en algunos estados</li>
+                                <li>La mortalidad masculina es hasta 9 veces superior to la femenina en algunos estados</li>
                             </ul>
                         </div>
                     </div>
@@ -439,7 +475,7 @@
                         <li><strong>Grupo 3:</strong> Entidades con acceso favorable pero alta mortalidad (ej. Sinaloa) → Estrategias específicas por contextos sociales</li>
                     </ol>
                     
-                    <p>El cumplimiento de las metas de la estrategia "Fin a la Tuberculosis 2030" depende del conocimiento particular de la situación a escala regional y el diseño de esquemas de atención diferenciados.</p>
+                    <p>El cumplimiento de las metas de la estrategia "Fin a la Tuberculosis 2030" depende del conocimiento particular de la situación a escala regional and el diseño de esquemas de atención diferenciados.</p>
                     
                     <p>Se requieren esfuerzos focalizados en las áreas de mayor mortalidad, considerando los determinantes sociales específicos de cada región.</p>
                 </div>
@@ -476,7 +512,7 @@
                     <div class="mt-5">
                         <p><strong>Presentación basada en la investigación:</strong> "Distribución espacial de la mortalidad por tuberculosis en México 1998-2023"</p>
                     </div>
-                </div>
+                    </div>
                 <div class="nav-buttons">
                     <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
                     <button class="btn-nav" onclick="goToFirstSlide()">Volver al inicio</button>
@@ -506,6 +542,11 @@
             document.getElementById(`slide${n}`).classList.add('active');
             currentSlide = n;
             updateProgressBar();
+            
+            // Load the interactive plot when reaching slide 3
+            if (n === 3 && !window.plotLoaded) {
+                loadInteractivePlot();
+            }
         }
         
         function nextSlide() {
@@ -535,6 +576,312 @@
         
         // Initialize progress bar
         updateProgressBar();
+        
+        // Actual data from the CSV file
+        const csvData = [
+            {AAMR_Hombres: 4.156955000571356, AAMR_Mujeres: 5.811033926017766, AAMR_Total: 4.983994463294561},
+            {AAMR_Hombres: 11.985530210780617, AAMR_Mujeres: 3.7533971476015386, AAMR_Total: 7.869463679191078},
+            {AAMR_Hombres: 7.847677441584021, AAMR_Mujeres: 5.167105916637567, AAMR_Total: 6.507391679110794},
+            {AAMR_Hombres: 5.965460882330573, AAMR_Mujeres: 3.932723725981111, AAMR_Total: 4.949092304155842},
+            {AAMR_Hombres: 4.9324577852064415, AAMR_Mujeres: 3.030690962046742, AAMR_Total: 3.981574373626592},
+            {AAMR_Hombres: 7.378784522144514, AAMR_Mujeres: 5.313325092188772, AAMR_Total: 6.346054807166643},
+            {AAMR_Hombres: 5.426809910711581, AAMR_Mujeres: 2.6315195279257, AAMR_Total: 4.029164719318641},
+            {AAMR_Hombres: 4.576220490752106, AAMR_Mujeres: 1.800562224703523, AAMR_Total: 3.1883913577278142},
+            {AAMR_Hombres: 1.712065651670245, AAMR_Mujeres: 0.6867466080817166, AAMR_Total: 1.1994061298759808},
+            {AAMR_Hombres: 4.139168576178782, AAMR_Mujeres: 2.2787844990364046, AAMR_Total: 3.208976537607593},
+            {AAMR_Hombres: 1.4161905870426343, AAMR_Mujeres: 1.0236379339807204, AAMR_Total: 1.2199142605116773},
+            {AAMR_Hombres: 4.4543677904560095, AAMR_Mujeres: 2.3958417867024813, AAMR_Total: 3.4251047885792456},
+            {AAMR_Hombres: 3.1675214057136625, AAMR_Mujeres: 1.1239866612841587, AAMR_Total: 2.1457540334989105},
+            {AAMR_Hombres: 3.112048065265241, AAMR_Mujeres: 1.2917674851097343, AAMR_Total: 2.201907775187488},
+            {AAMR_Hombres: 1.0610717498311628, AAMR_Mujeres: 0.90890829477354, AAMR_Total: 0.9849900223023513},
+            {AAMR_Hombres: 1.9016004675901854, AAMR_Mujeres: 1.1930506829897363, AAMR_Total: 1.5473255752899608},
+            {AAMR_Hombres: 4.403938155317023, AAMR_Mujeres: 3.2913017543769243, AAMR_Total: 3.847619954846974},
+            {AAMR_Hombres: 7.899734000011045, AAMR_Mujeres: 3.250134607754124, AAMR_Total: 5.574934303882585},
+            {AAMR_Hombres: 9.74330827163057, AAMR_Mujeres: 3.235730566405475, AAMR_Total: 6.4895194190180225},
+            {AAMR_Hombres: 4.2513943190291945, AAMR_Mujeres: 2.319989642577284, AAMR_Total: 3.2856919808032394},
+            {AAMR_Hombres: 1.8866381577928166, AAMR_Mujeres: 0.9456564993002015, AAMR_Total: 1.4161473285465092},
+            {AAMR_Hombres: 7.161201867666059, AAMR_Mujeres: 1.6905681963940378, AAMR_Total: 4.425885032030049},
+            {AAMR_Hombres: 7.829848200999272, AAMR_Mujeres: 3.028875043905787, AAMR_Total: 5.42936162245253},
+            {AAMR_Hombres: 4.7828793005487045, AAMR_Mujeres: 2.341931413708013, AAMR_Total: 3.562405357128359},
+            {AAMR_Hombres: 9.724972746197375, AAMR_Mujeres: 2.1784458301213494, AAMR_Total: 5.951709288159362},
+            {AAMR_Hombres: 9.692036067340734, AAMR_Mujeres: 2.0889420146544313, AAMR_Total: 5.890489040997583},
+            {AAMR_Hombres: 6.325068479494398, AAMR_Mujeres: 2.12534720327663, AAMR_Total: 4.225207841385513},
+            {AAMR_Hombres: 7.209608117932484, AAMR_Mujeres: 2.2816033906465143, AAMR_Total: 4.745605754289499},
+            {AAMR_Hombres: 1.57870640796931, AAMR_Mujeres: 1.6032064128256514, AAMR_Total: 1.5909564103974807},
+            {AAMR_Hombres: 4.694747975578058, AAMR_Mujeres: 1.6069287697433765, AAMR_Total: 3.150838372660717},
+            {AAMR_Hombres: 3.2721700815042767, AAMR_Mujeres: 1.3737740387781172, AAMR_Total: 2.322972060141197},
+            {AAMR_Hombres: 4.41185262924112, AAMR_Mujeres: 2.4982061465354044, AAMR_Total: 3.4550293878882625}
+        ];
+        
+        // State names mapping
+        const stateNames = [
+            "Aguascalientes", "BC", "BCS", "Campeche", "Coahuila", "Colima", "Chiapas",
+            "Chihuahua", "CDMX", "Durango", "Guanajuato", "Guerrero", "Hidalgo", "Jalisco",
+            "EdoMx", "Michoacán", "Morelos", "Nayarit", "Nuevo León", "Oaxaca", "Puebla",
+            "Querétaro", "Quintana Roo", "SLP", "Sinaloa", "Sonora", "Tabasco", "Tamaulipas",
+            "Tlaxcala", "Veracruz", "Yucatán", "Zacatecas"
+        ];
+        
+        // Function to load and create the interactive plot
+        function loadInteractivePlot() {
+            try {
+                window.plotLoaded = true;
+                document.getElementById('plot-loading').style.display = 'none';
+                createInteractivePlot(csvData);
+            } catch (error) {
+                console.error('Error creating plot:', error);
+                document.getElementById('plot-loading').innerHTML = 
+                    '<p>Error creando la visualización. Por favor, intente recargar la página.</p>';
+            }
+        }
+        
+        function createInteractivePlot(data) {
+            // Process the data
+            const df = data.map((row, index) => {
+                return {
+                    State_Name: stateNames[index],
+                    AAMR_Hombres: row.AAMR_Hombres,
+                    AAMR_Mujeres: row.AAMR_Mujeres,
+                    AAMR_Total: row.AAMR_Total,
+                    Gender_Gap: row.AAMR_Hombres - row.AAMR_Mujeres
+                };
+            });
+            
+            // Sort by AAMR_Hombres in ASCENDING order
+            df.sort((a, b) => a.AAMR_Hombres - b.AAMR_Hombres);
+            
+            // Calculate national averages
+            const nat_avg_m = df.reduce((sum, row) => sum + row.AAMR_Hombres, 0) / df.length;
+            const nat_avg_f = df.reduce((sum, row) => sum + row.AAMR_Mujeres, 0) / df.length;
+            
+            // Update the averages in the text
+            document.getElementById('avg-male').textContent = nat_avg_m.toFixed(2);
+            document.getElementById('avg-female').textContent = nat_avg_f.toFixed(2);
+            
+            // Create traces for the plot
+            const traces = [];
+            
+            // Add lines connecting men and women values
+            df.forEach(row => {
+                traces.push({
+                    x: [row.AAMR_Hombres, row.AAMR_Mujeres],
+                    y: [row.State_Name, row.State_Name],
+                    mode: 'lines',
+                    line: { color: 'gray', width: 1, opacity: 0.3 },
+                    showlegend: false,
+                    hoverinfo: 'none'
+                });
+            });
+            
+            // Add markers for men
+            traces.push({
+                x: df.map(row => row.AAMR_Hombres),
+                y: df.map(row => row.State_Name),
+                mode: 'markers',
+                name: 'Hombres',
+                marker: {
+                    color: '#1f77b4',
+                    size: 10,
+                    line: { color: 'black', width: 1 }
+                },
+                hovertemplate: 
+                    '<b>%{customdata[0]}</b><br>' +
+                    'Tasa Hombres: %{x:.2f}<br>' +
+                    'Tasa Mujeres: %{customdata[1]:.2f}<br>' +
+                    'Brecha de Género: %{customdata[2]:.2f}<br>' +
+                    'Tasa Total: %{customdata[3]:.2f}<extra></extra>',
+                customdata: df.map(row => [
+                    row.State_Name, 
+                    row.AAMR_Mujeres, 
+                    row.Gender_Gap, 
+                    row.AAMR_Total
+                ])
+            });
+            
+            // Add markers for women
+            traces.push({
+                x: df.map(row => row.AAMR_Mujeres),
+                y: df.map(row => row.State_Name),
+                mode: 'markers',
+                name: 'Mujeres',
+                marker: {
+                    color: '#ff7f0e',
+                    size: 10,
+                    symbol: 'square',
+                    line: { color: 'black', width: 1 }
+                },
+                hovertemplate: 
+                    '<b>%{customdata[0]}</b><br>' +
+                    'Tasa Mujeres: %{x:.2f}<br>' +
+                    'Tasa Hombres: %{customdata[1]:.2f}<br>' +
+                    'Brecha de Género: %{customdata[2]:.2f}<br>' +
+                    'Tasa Total: %{customdata[3]:.2f}<extra></extra>',
+                customdata: df.map(row => [
+                    row.State_Name, 
+                    row.AAMR_Hombres, 
+                    row.Gender_Gap, 
+                    row.AAMR_Total
+                ])
+            });
+            
+            // Create layout
+            const layout = {
+                title: {
+                    text: '', // Removed title as requested
+                    font: { size: 16 }
+                },
+                xaxis: {
+                    title: 'Tasa de Mortalidad Ajustada por Edad por TB (100,000 habitantes)',
+                    showgrid: true,
+                    gridcolor: 'rgba(0,0,0,0.1)',
+                    zeroline: false
+                },
+                yaxis: {
+                    title: 'Estado',
+                    automargin: true,
+                    tickmode: 'array',
+                    tickvals: df.map((_, i) => i),
+                    ticktext: df.map(row => row.State_Name)
+                },
+                height: 600,
+                showlegend: true,
+                legend: {
+                    orientation: 'h',
+                    yanchor: 'bottom',
+                    y: 1.02,
+                    xanchor: 'right',
+                    x: 1
+                },
+                hovermode: 'closest',
+                margin: { l: 150, r: 50, t: 50, b: 80 }, // Reduced top margin since title is removed
+                shapes: [
+                    // Average men line
+                    {
+                        type: 'line',
+                        x0: nat_avg_m,
+                        y0: -0.5,
+                        x1: nat_avg_m,
+                        y1: df.length - 0.5,
+                        line: {
+                            color: '#1f77b4',
+                            width: 1.5,
+                            dash: 'solid'
+                        }
+                    },
+                    // Average women line
+                    {
+                        type: 'line',
+                        x0: nat_avg_f,
+                        y0: -0.5,
+                        x1: nat_avg_f,
+                        y1: df.length - 0.5,
+                        line: {
+                            color: '#ff7f0e',
+                            width: 1.5,
+                            dash: 'solid'
+                        }
+                    },
+                    // OMS reference line
+                    {
+                        type: 'line',
+                        x0: 1.8,
+                        y0: -0.5,
+                        x1: 1.8,
+                        y1: df.length - 0.5,
+                        line: {
+                            color: 'black',
+                            width: 1.5,
+                            dash: 'dot'
+                        }
+                    },
+                    // CONAPO reference line
+                    {
+                        type: 'line',
+                        x0: 2.16,
+                        y0: -0.5,
+                        x1: 2.16,
+                        y1: df.length - 0.5,
+                        line: {
+                            color: 'gray',
+                            width: 1.5,
+                            dash: 'dash'
+                        }
+                    }
+                ],
+                annotations: [
+                    {
+                        x: nat_avg_m,
+                        y: df.length - 1,
+                        text: `Promedio Hombres: ${nat_avg_m.toFixed(2)}`,
+                        showarrow: false,
+                        xanchor: 'left',
+                        font: { color: '#1f77b4' },
+                        bgcolor: 'white',
+                        bordercolor: '#1f77b4',
+                        borderwidth: 1,
+                        borderpad: 4
+                    },
+                    {
+                        x: nat_avg_f,
+                        y: df.length - 2,
+                        text: `Promedio Mujeres: ${nat_avg_f.toFixed(2)}`,
+                        showarrow: false,
+                        xanchor: 'left',
+                        font: { color: '#ff7f0e' },
+                        bgcolor: 'white',
+                        bordercolor: '#ff7f0e',
+                        borderwidth: 1,
+                        borderpad: 4
+                    },
+                    {
+                        x: 1.8,
+                        y: 0,
+                        text: 'OMS: 1.8',
+                        showarrow: false,
+                        xanchor: 'left',
+                        font: { size: 10 },
+                        bgcolor: 'white',
+                        bordercolor: 'black',
+                        borderwidth: 1,
+                        borderpad: 4
+                    },
+                    {
+                        x: 2.16,
+                        y: 1,
+                        text: 'México (CONAPO): 2.16',
+                        showarrow: false,
+                        xanchor: 'right',
+                        font: { size: 10, color: 'gray' },
+                        bgcolor: 'white',
+                        bordercolor: 'gray',
+                        borderwidth: 1,
+                        borderpad: 4
+                    }
+                ]
+            };
+            
+            // Create the plot
+            Plotly.newPlot('interactive-plot', traces, layout, {
+                responsive: true,
+                displayModeBar: true,
+                displaylogo: false,
+                modeBarButtonsToAdd: [
+                    {
+                        name: 'Download Plot',
+                        icon: Plotly.Icons.camera,
+                        click: function(gd) {
+                            Plotly.downloadImage(gd, {
+                                format: 'png',
+                                width: 1200,
+                                height: 800,
+                                filename: 'TB_tasas_sex2023'
+                            });
+                        }
+                    }
+                ],
+                modeBarButtonsToRemove: ['pan2d', 'lasso2d', 'select2d']
+            });
+        }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
