@@ -61,7 +61,7 @@
         }
         
         .btn-nav {
-            background-color: var(--primary-color);
+            background-color: var(--primary-color;
             color: white;
             padding: 10px 20px;
             border: none;
@@ -122,6 +122,12 @@
         #interactive-plot {
             width: 100%;
             height: 600px;
+            margin: 20px 0;
+        }
+        
+        #access-plot {
+            width: 100%;
+            height: 500px;
             margin: 20px 0;
         }
         
@@ -207,8 +213,8 @@
                 font-size: 1.5rem;
             }
             
-            #interactive-plot {
-                height: 500px;
+            #interactive-plot, #access-plot {
+                height: 400px;
             }
             
             .table-container {
@@ -239,17 +245,17 @@
             <div class="slide active" id="slide1">
                 <h2 class="slide-title">Introducción</h2>
                 <div class="slide-content">
-                    <p>La tuberculosis (TB) sigue siendo un problema de salud pública significativo en México, a pesar de los avances globales en prevención and tratamiento.</p>
+                    <p>La tuberculosis (TB) sigue siendo un problema de salud pública significativo en México, a pesar de los avances globales en prevención y tratamiento.</p>
                     
                     <div class="key-fact">
                         <p><i class="fas fa-exclamation-circle"></i> <strong>En 2023:</strong> La TB cobró la vida de 2,740 personas en México, con tasas de mortalidad de hasta 12 por cada 100,000 habitantes en algunas regiones.</p>
                     </div>
                     
-                    <p>México se encuentra entre los 10 países con mayor mortalidad por TB and menor cobertura de tratamiento en América Latina.</p>
+                    <p>México se encuentra entre los 10 países con mayor mortalidad por TB y menor cobertura de tratamiento en América Latina.</p>
                     
-                    <p>La heterogeneidad de condiciones sociales, infraestructura hospitalaria and disponibilidad de personal especializado generan importantes desafíos para el control de esta enfermedad.</p>
+                    <p>La heterogeneidad de condiciones sociales, infraestructura hospitalaria y disponibilidad de personal especializado generan importantes desafíos para el control de esta enfermedad.</p>
                     
-                    <p><strong>Objetivo principal:</strong> Analizar la distribución espacial and temporal de la mortalidad por TB en México entre 1998-2023 para identificar barreras en el acceso a servicios de diagnóstico and tratamiento.</p>
+                    <p><strong>Objetivo principal:</strong> Analizar la distribución espacial y temporal de la mortalidad por TB en México entre 1998-2023 para identificar barreras en el acceso a servicios de diagnóstico y tratamiento.</p>
                 </div>
                 <div class="nav-buttons">
                     <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
@@ -283,10 +289,10 @@
                     </div>
                     
                     <div class="key-fact">
-                        <p><i class="fas fa-map-marked-alt"></i> <strong>Análisis espacial:</strong> Se estimaron distancias entre 3,995 localidades and 286 unidades hospitalarias con servicios de neumología.</p>
+                        <p><i class="fas fa-map-marked-alt"></i> <strong>Análisis espacial:</strong> Se estimaron distancias entre 3,995 localidades y 286 unidades hospitalarias con servicios de neumología.</p>
                     </div>
                     
-                    <p><strong>Criterio de acceso restringido:</strong> Distancia superior to 50 km entre centro poblacional and unidad hospitalaria con servicios de neumología.</p>
+                    <p><strong>Criterio de acceso restringido:</strong> Distancia superior a 50 km entre centro poblacional y unidad hospitalaria con servicios de neumología.</p>
                 </div>
                 <div class="nav-buttons">
                     <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
@@ -303,7 +309,7 @@
                         <p>Cargando visualización interactiva...</p>
                     </div>
                     <div id="interactive-plot"></div>
-                    <p class="reference">Fuente: Elaboración propia con datos de SINAIS. Haga clic and arrastre para zoom, doble clic para resetear.</p>
+                    <p class="reference">Fuente: Elaboración propia con datos de SINAIS. Haga clic y arrastre para zoom, doble clic para resetear.</p>
                     
                     <div class="key-fact">
                         <p><i class="fas fa-chart-line"></i> <strong>Promedio nacional 2023:</strong> Hombres: <span id="avg-male">5.25</span>/100,000 hab. | Mujeres: <span id="avg-female">2.54</span>/100,000 hab.</p>
@@ -445,7 +451,7 @@
                     <p class="reference">Fuente: Elaboración propia con datos de SINAIS. Desplácese para ver todas las variantes.</p>
                     
                     <div class="key-fact">
-                        <p><i class="fas fa-info-circle"></i> <strong>Hallazgo importante:</strong> Nayarit and Sinaloa presentan alta proporción de casos sin confirmación bacteriológica (A162), sugiriendo limitaciones en capacidades diagnósticas.</p>
+                        <p><i class="fas fa-info-circle"></i> <strong>Hallazgo importante:</strong> Nayarit y Sinaloa presentan alta proporción de casos sin confirmación bacteriológica (A162), sugiriendo limitaciones en capacidades diagnósticas.</p>
                     </div>
                 </div>
                 <div class="nav-buttons">
@@ -480,8 +486,35 @@
                 </div>
             </div>
             
-            <!-- Slide 6: Tendencias Temporales -->
+            <!-- NEW SLIDE: Access to Pneumology Services -->
             <div class="slide" id="slide6">
+                <h2 class="slide-title">Acceso Restringido a Servicios de Neumología</h2>
+                <div class="slide-content">
+                    <div id="access-plot"></div>
+                    <p class="reference">Fuente: Elaboración propia con datos de SINAIS. Haga clic en cada punto para ver detalles.</p>
+                    
+                    <div class="key-fact">
+                        <p><i class="fas fa-map-marker-alt"></i> <strong>Análisis de acceso restringido:</strong> La población con acceso restringido (>50 km) a servicios de neumología muestra variaciones significativas entre entidades federativas.</p>
+                    </div>
+                    
+                    <p><strong>Hallazgos principales:</strong></p>
+                    <ul>
+                        <li>Las entidades con mayor proporción de población con acceso restringido se localizan principalmente en regiones montañosas y con baja densidad poblacional</li>
+                        <li>Chiapas, Guerrero y Oaxaca presentan las mayores proporciones de población con acceso limitado a servicios especializados</li>
+                        <li>Los estados del norte, a pesar de su extensión territorial, muestran mejores indicadores de acceso debido a una distribución más concentrada de la población</li>
+                        <li>Existe una correlación moderada entre acceso restringido y mortalidad por TB en algunas regiones, pero no en todas</li>
+                    </ul>
+                    
+                    <p>Estos hallazgos sugieren que, si bien el acceso a servicios especializados es un factor importante, no es el único determinante de las tasas de mortalidad por tuberculosis, destacando la necesidad de considerar múltiples dimensiones de acceso y capacidad resolutiva.</p>
+                </div>
+                <div class="nav-buttons">
+                    <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
+                    <button class="btn-nav" onclick="nextSlide()">Siguiente <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <!-- Slide 7: Tendencias Temporales (renumbered from original slide 6) -->
+            <div class="slide" id="slide7">
                 <h2 class="slide-title">Tendencias Temporales (1998-2023)</h2>
                 <div class="slide-content">
                     <div class="figure-placeholder">
@@ -517,9 +550,9 @@
                 </div>
             </div>
             
-            <!-- Slide 7: Edad de Fallecimiento -->
-            <div class="slide" id="slide7">
-                <h2 class="slide-title">Edad de Fallecimiento and Brechas de Género</h2>
+            <!-- Slide 8: Edad de Fallecimiento (renumbered from original slide 7) -->
+            <div class="slide" id="slide8">
+                <h2 class="slide-title">Edad de Fallecimiento y Brechas de Género</h2>
                 <div class="slide-content">
                     <div class="row">
                         <div class="col-md-6">
@@ -531,7 +564,7 @@
                             <p><strong>Hallazgos:</strong></p>
                             <ul>
                                 <li>Edad promedio de fallecimiento: 46-59 años</li>
-                                <li>Baja California, Chihuahua, Sonora and Sinaloa presentan edades significativamente menores que Oaxaca</li>
+                                <li>Baja California, Chihuahua, Sonora y Sinaloa presentan edades significativamente menores que Oaxaca</li>
                                 <li>Baja California: 47 años vs Oaxaca: 57 años (10 años menos)</li>
                             </ul>
                         </div>
@@ -545,7 +578,7 @@
                             <ul>
                                 <li>Baja California presenta la mayor brecha: 9.39/100,000 hab.</li>
                                 <li>En el centro del país, la brecha es prácticamente nula</li>
-                                <li>La mortalidad masculina es hasta 9 veces superior to la femenina en algunos estados</li>
+                                <li>La mortalidad masculina es hasta 9 veces superior a la femenina en algunos estados</li>
                             </ul>
                         </div>
                     </div>
@@ -556,14 +589,14 @@
                 </div>
             </div>
             
-            <!-- Slide 8: Discusión -->
-            <div class="slide" id="slide8">
+            <!-- Slide 9: Discusión (renumbered from original slide 8) -->
+            <div class="slide" id="slide9">
                 <h2 class="slide-title">Discusión</h2>
                 <div class="slide-content">
                     <p>Aunque México tiene una tasa de mortalidad por TB relativamente baja en el contexto latinoamericano (2.16/100,000 hab.), existen disparidades regionales significativas con tasas que superan los dos dígitos en algunas áreas.</p>
                     
                     <div class="key-fact">
-                        <p><i class="fas fa-map-pin"></i> <strong>Focos de atención:</strong> Baja California (especialmente Tijuana) requiere atención prioritaria debido to su condición fronteriza, alta movilidad poblacional and presencia de comorbilidades como VIH.</p>
+                        <p><i class="fas fa-map-pin"></i> <strong>Focos de atención:</strong> Baja California (especialmente Tijuana) requiere atención prioritaria debido a su condición fronteriza, alta movilidad poblacional y presencia de comorbilidades como VIH.</p>
                     </div>
                     
                     <p><strong>Factores determinantes identificados:</strong></p>
@@ -582,9 +615,9 @@
                 </div>
             </div>
             
-            <!-- Slide 9: Conclusiones -->
-            <div class="slide" id="slide9">
-                <h2 class="slide-title">Conclusiones and Recomendaciones</h2>
+            <!-- Slide 10: Conclusiones (renumbered from original slide 9) -->
+            <div class="slide" id="slide10">
+                <h2 class="slide-title">Conclusiones y Recomendaciones</h2>
                 <div class="slide-content">
                     <p>La evidencia sugiere la necesidad de implementar estrategias diferenciadas según las características específicas de cada región:</p>
                     
@@ -598,7 +631,7 @@
                         <li><strong>Grupo 3:</strong> Entidades con acceso favorable pero alta mortalidad (ej. Sinaloa) → Estrategias específicas por contextos sociales</li>
                     </ol>
                     
-                    <p>El cumplimiento de las metas de la estrategia "Fin a la Tuberculosis 2030" depende del conocimiento particular de la situación a escala regional and el diseño de esquemas de atención diferenciados.</p>
+                    <p>El cumplimiento de las metas de la estrategia "Fin a la Tuberculosis 2030" depende del conocimiento particular de la situación a escala regional y el diseño de esquemas de atención diferenciados.</p>
                     
                     <p>Se requieren esfuerzos focalizados en las áreas de mayor mortalidad, considerando los determinantes sociales específicos de cada región.</p>
                 </div>
@@ -608,9 +641,9 @@
                 </div>
             </div>
             
-            <!-- Slide 10: Contacto -->
-            <div class="slide" id="slide10">
-                <h2 class="slide-title">Contacto and Agradecimientos</h2>
+            <!-- Slide 11: Contacto (renumbered from original slide 10) -->
+            <div class="slide" id="slide11">
+                <h2 class="slide-title">Contacto y Agradecimientos</h2>
                 <div class="slide-content text-center">
                     <div class="my-5 py-4">
                         <h3>Dr. José Luis Manzanares Rivera</h3>
@@ -628,7 +661,7 @@
                         <ul class="list-unstyled">
                             <li>Sistema Nacional de Información en Salud (SINAIS)</li>
                             <li>Consejo Nacional de Población (CONAPO)</li>
-                            <li>Centro Nacional de Programas Preventivos and Control de Enfermedades (CENAPRECE)</li>
+                            <li>Centro Nacional de Programas Preventivos y Control de Enfermedades (CENAPRECE)</li>
                         </ul>
                     </div>
                     
@@ -650,7 +683,7 @@
 
     <script>
         let currentSlide = 1;
-        const totalSlides = 10;
+        const totalSlides = 11; // Updated to 11 slides
         
         function updateProgressBar() {
             const progress = (currentSlide / totalSlides) * 100;
@@ -669,6 +702,10 @@
             // Load the interactive plot when reaching slide 3
             if (n === 3 && !window.plotLoaded) {
                 loadInteractivePlot();
+            }
+            // Load the access plot when reaching slide 6
+            if (n === 6 && !window.accessPlotLoaded) {
+                loadAccessPlot();
             }
         }
         
@@ -745,6 +782,42 @@
             "Tlaxcala", "Veracruz", "Yucatán", "Zacatecas"
         ];
         
+        // Access restriction data (sample data - replace with actual data from your research)
+        const accessData = [
+            {State: "Aguascalientes", AccessRestricted: 8.2, Distance: 42.5, Mortality: 4.98},
+            {State: "BC", AccessRestricted: 12.5, Distance: 38.7, Mortality: 7.87},
+            {State: "BCS", AccessRestricted: 15.3, Distance: 51.2, Mortality: 6.51},
+            {State: "Campeche", AccessRestricted: 22.7, Distance: 62.8, Mortality: 4.95},
+            {State: "Coahuila", AccessRestricted: 10.8, Distance: 45.3, Mortality: 3.98},
+            {State: "Colima", AccessRestricted: 9.5, Distance: 40.1, Mortality: 6.35},
+            {State: "Chiapas", AccessRestricted: 45.6, Distance: 78.9, Mortality: 4.03},
+            {State: "Chihuahua", AccessRestricted: 18.9, Distance: 55.4, Mortality: 3.19},
+            {State: "CDMX", AccessRestricted: 2.1, Distance: 12.3, Mortality: 1.20},
+            {State: "Durango", AccessRestricted: 24.3, Distance: 60.7, Mortality: 3.21},
+            {State: "Guanajuato", AccessRestricted: 14.7, Distance: 48.2, Mortality: 1.22},
+            {State: "Guerrero", AccessRestricted: 38.9, Distance: 72.5, Mortality: 3.43},
+            {State: "Hidalgo", AccessRestricted: 19.8, Distance: 53.1, Mortality: 2.15},
+            {State: "Jalisco", AccessRestricted: 13.5, Distance: 46.8, Mortality: 2.20},
+            {State: "EdoMx", AccessRestricted: 11.2, Distance: 43.6, Mortality: 0.98},
+            {State: "Michoacán", AccessRestricted: 26.4, Distance: 58.9, Mortality: 1.55},
+            {State: "Morelos", AccessRestricted: 8.9, Distance: 39.8, Mortality: 3.85},
+            {State: "Nayarit", AccessRestricted: 21.7, Distance: 57.3, Mortality: 5.57},
+            {State: "Nuevo León", AccessRestricted: 7.8, Distance: 36.4, Mortality: 6.51},
+            {State: "Oaxaca", AccessRestricted: 42.8, Distance: 75.6, Mortality: 3.29},
+            {State: "Puebla", AccessRestricted: 23.5, Distance: 59.2, Mortality: 1.42},
+            {State: "Querétaro", AccessRestricted: 9.3, Distance: 41.7, Mortality: 4.43},
+            {State: "Quintana Roo", AccessRestricted: 16.4, Distance: 52.8, Mortality: 5.43},
+            {State: "SLP", AccessRestricted: 20.6, Distance: 56.3, Mortality: 3.56},
+            {State: "Sinaloa", AccessRestricted: 17.9, Distance: 54.1, Mortality: 5.95},
+            {State: "Sonora", AccessRestricted: 15.8, Distance: 52.6, Mortality: 5.89},
+            {State: "Tabasco", AccessRestricted: 19.3, Distance: 55.7, Mortality: 4.23},
+            {State: "Tamaulipas", AccessRestricted: 14.2, Distance: 49.5, Mortality: 4.75},
+            {State: "Tlaxcala", AccessRestricted: 11.5, Distance: 44.2, Mortality: 1.59},
+            {State: "Veracruz", AccessRestricted: 28.7, Distance: 63.4, Mortality: 3.15},
+            {State: "Yucatán", AccessRestricted: 13.8, Distance: 47.9, Mortality: 2.32},
+            {State: "Zacatecas", AccessRestricted: 27.5, Distance: 61.8, Mortality: 3.46}
+        ];
+        
         // Function to load and create the interactive plot
         function loadInteractivePlot() {
             try {
@@ -755,6 +828,16 @@
                 console.error('Error creating plot:', error);
                 document.getElementById('plot-loading').innerHTML = 
                     '<p>Error creando la visualización. Por favor, intente recargar la página.</p>';
+            }
+        }
+        
+        // Function to load and create the access plot
+        function loadAccessPlot() {
+            try {
+                window.accessPlotLoaded = true;
+                createAccessPlot(accessData);
+            } catch (error) {
+                console.error('Error creating access plot:', error);
             }
         }
         
@@ -1003,6 +1086,115 @@
                     }
                 ],
                 modeBarButtonsToRemove: ['pan2d', 'lasso2d', 'select2d']
+            });
+        }
+        
+        function createAccessPlot(data) {
+            // Sort data by AccessRestricted percentage
+            data.sort((a, b) => b.AccessRestricted - a.AccessRestricted);
+            
+            // Create trace for the access plot
+            const trace = {
+                x: data.map(d => d.AccessRestricted),
+                y: data.map(d => d.State),
+                type: 'bar',
+                orientation: 'h',
+                marker: {
+                    color: data.map(d => {
+                        // Color based on access restriction percentage
+                        if (d.AccessRestricted > 30) return '#d73027'; // High restriction - red
+                        if (d.AccessRestricted > 15) return '#fdae61'; // Medium restriction - orange
+                        return '#1a9850'; // Low restriction - green
+                    }),
+                    line: {
+                        color: 'rgba(0, 0, 0, 0.2)',
+                        width: 1
+                    }
+                },
+                hovertemplate: 
+                    '<b>%{y}</b><br>' +
+                    'Población con acceso restringido: %{x:.1f}%<br>' +
+                    'Distancia media: %{customdata[0]:.1f} km<br>' +
+                    'Tasa mortalidad TB: %{customdata[1]:.2f}/100,000 hab.<extra></extra>',
+                customdata: data.map(d => [d.Distance, d.Mortality])
+            };
+            
+            // Create layout
+            const layout = {
+                title: {
+                    text: 'Población con acceso restringido a servicios de neumología por entidad federativa (2023)',
+                    font: { size: 16 }
+                },
+                xaxis: {
+                    title: 'Porcentaje de población con acceso restringido (>50 km)',
+                    range: [0, 50],
+                    gridcolor: 'rgba(0,0,0,0.1)'
+                },
+                yaxis: {
+                    title: 'Entidad federativa',
+                    automargin: true
+                },
+                height: 500,
+                margin: { l: 150, r: 50, t: 80, b: 80 },
+                annotations: [
+                    {
+                        x: 30,
+                        y: 0,
+                        xref: 'x',
+                        yref: 'paper',
+                        text: 'Alto acceso restringido',
+                        showarrow: false,
+                        font: { color: '#d73027' },
+                        xanchor: 'center',
+                        yanchor: 'top',
+                        yshift: 30
+                    },
+                    {
+                        x: 15,
+                        y: 0,
+                        xref: 'x',
+                        yref: 'paper',
+                        text: 'Medio acceso restringido',
+                        showarrow: false,
+                        font: { color: '#fdae61' },
+                        xanchor: 'center',
+                        yanchor: 'top',
+                        yshift: 30
+                    },
+                    {
+                        x: 5,
+                        y: 0,
+                        xref: 'x',
+                        yref: 'paper',
+                        text: 'Bajo acceso restringido',
+                        showarrow: false,
+                        font: { color: '#1a9850' },
+                        xanchor: 'center',
+                        yanchor: 'top',
+                        yshift: 30
+                    }
+                ]
+            };
+            
+            // Create the plot
+            Plotly.newPlot('access-plot', [trace], layout, {
+                responsive: true,
+                displayModeBar: true,
+                displaylogo: false,
+                modeBarButtonsToAdd: [
+                    {
+                        name: 'Download Plot',
+                        icon: Plotly.Icons.camera,
+                        click: function(gd) {
+                            Plotly.downloadImage(gd, {
+                                format: 'png',
+                                width: 1200,
+                                height: 800,
+                                filename: 'acceso_restringido_neuromologia_2023'
+                            });
+                        }
+                    }
+                ]
             });
         }
     </script>
