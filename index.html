@@ -303,38 +303,33 @@
                 </div>
             </div>
             
-            <!-- Slide 2: Métodos -->
-            <div class="slide" id="slide2">
-                <h2 class="slide-title">Metodología</h2>
-                <div class="slide-content">
-                    <p><strong>Diseño del estudio:</strong> Análisis exploratorio retrospectivo de 25 años (1998-2023)</p>
-                    
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h5>Fuentes de datos:</h5>
-                            <ul>
-                                <li>Sistema Nacional de Información en Salud (SINAIS)</li>
-                                <li>Registros de mortalidad oficiales</li>
-                                <li>Datos del Consejo Nacional de Población (CONAPO)</li>
-                            </ul>
-                        </div>
-                        <div class="col-md-6">
-                            <h5>Métodos analíticos:</h5>
-                            <ul>
-                                <li>Estimación de tasas de mortalidad estandarizadas</li>
-                                <li>Análisis espacial con Sistemas de Información Geográfica</li>
-                                <li>Análisis de varianza (ANOVA)</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="key-fact">
-                        <p><i class="fas fa-map-marked-alt"></i> <strong>Análisis espacial:</strong> Se estimaron distancias entre 3,995 localidades y 286 unidades hospitalarias con servicios de neumología.</p>
-                    </div>
-                    
-                    <p><strong>Criterio de acceso restringido:</strong> Distancia superior a 50 km entre centro poblacional y unidad hospitalaria con servicios de neumología.</p>
-                </div>
-            </div>
+            <!-- Slide 3: Tasas de Mortalidad 2023 -->
+<div class="slide" id="slide3">
+    <h2 class="slide-title">Tasas de Mortalidad por TB (2023)</h2>
+    <div class="slide-content">
+        <div class="plot-loading" id="plot-loading">
+            <div class="spinner"></div>
+            <p>Cargando visualización interactiva...</p>
+        </div>
+        <div id="interactive-plot"></div>
+        <p class="reference">Fuente: Elaboración propia con datos de SINAIS. Haga clic y arrastre para zoom, doble clic para resetear.</p>
+        
+        <div class="key-fact">
+            <p><i class="fas fa-chart-line"></i> <strong>Promedio nacional 2023:</strong> Hombres: <span id="avg-male">5.25</span>/100,000 hab. | Mujeres: <span id="avg-female">2.54</span>/100,000 hab.</p>
+        </div>
+        
+        <p><strong>Estados con mayor mortalidad:</strong></p>
+        <ul>
+            <li>Baja California (11.98 H, 3.75 M)</li>
+            <li>Nuevo León (9.74 H, 3.28 M)</li>
+            <li>Sonora (9.69 H, 2.08 M)</li>
+            <li>Sinaloa (9.72 H, 2.17 M)</li>
+            <li>Nayarit (7.89 H, 3.25 M)</li>
+        </ul>
+        
+        <p>La mayoría de los estados con alta mortalidad se ubican en la región noroeste del país.</p>
+    </div>
+</div>
             
             <!-- Slide 3: Tasas de Mortalidad 2023 -->
             <div class="slide" id="slide3">
