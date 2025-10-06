@@ -878,13 +878,157 @@ function loadInteractivePlot() {
         // Hide loading indicator
         document.getElementById('plot-loading').style.display = 'none';
         
-        // Create the plot with the CSV data
-        createInteractivePlot(csvData);
+function createInteractivePlot(data) {
+    try {
+        // Process the data - ensure we have valid data
+        if (!data || data.length === 0) {
+            console.error('No data available for plot');
+            return;
+        }
         
-        // Mark as loaded to prevent reloading
-        window.plotLoaded = true;
+        const df = data.map((row, index) => {
+            return {
+                State_Name: stateNames[index] || `Estado ${index + 1}`,
+                AAMR_Hombres: row.AAMR_Hombres || 0,
+                AAMR_Mujeres: row.AAMR_Mujeres || 0,
+                AAMR_Total: row.AAMR_Total || 0,
+                Gender_Gap: (row.AAMR_Hombres || 0) - (row.AAMR_Mujeres || 0)
+            };
+        });
+        
+        // Sort by AAMR_Hombres in ASCENDING order
+        df.sort((a, b) => a.AAMR_Hombres - b.AAMR_Hombres);
+        
+        // Calculate national averages
+        const nat_avg_m = df.reduce((sum, row) => sum + row.AAMR_Hombres, 0) / df.length;
+        const nat_avg_f = df.reduce((sum, row) => sum + row.AAMR_Mujeres, 0) / df.length;
+        
+        // Update the averages in the text
+        document.getElementById('avg-male').textContent = nat_avg_m.toFixed(2);
+        document.getElementById('avg-female').textContent = nat_avg_f.toFixed(2);
+        
+        // Create traces for the plot
+        const traces = [];
+        
+        // Add lines connecting men and women values
+        df.forEach(row => {
+            traces.push({
+                x: [row.AAMR_Hombres, row.AAMR_Mujeres],
+                y: [row.State_Name, row.State_Name],
+                mode: 'lines',
+                line: { color: 'gray', width: 1, opacity: 0.3 },
+                showlegend: false,
+                hoverinfo: 'none'
+            });
+        });
+        
+        // Add markers for men
+        traces.push({
+            x: df.map(row => row.AAMR_Hombres),
+            y: df.map(row => row.State_Name),
+            mode: 'markers',
+            name: 'Hombres',
+            marker: {
+                color: '#1f77b4',
+                size: 10,
+                line: { color: 'black', width: 1 }
+            },
+            hovertemplate: 
+                '<b>%{customdata[0]}</b><br>' +
+                'Tasa Hombres: %{x:.2f}<br>' +
+                'Tasa Mujeres: %{customdata[1]:.2f}<br>' +
+                'Brecha de Género: %{customdata[2]:.2f}<br>' +
+                'Tasa Total: %{customdata[3]:.2f}<extra></extra>',
+            customdata: df.map(row => [
+                row.State_Name, 
+                row.AAMR_Mujeres, 
+                row.Gender_Gap, 
+                row.AAMR_Total
+            ])
+        });
+        
+        // Add markers for women
+        traces.push({
+            x: df.map(row => row.AAMR_Mujeres),
+            y: df.map(row => row.State_Name),
+            mode: 'markers',
+            name: 'Mujeres',
+            marker: {
+                color: '#ff7f0e',
+                size: 10,
+                symbol: 'square',
+                line: { color: 'black', width: 1 }
+            },
+            hovertemplate: 
+                '<b>%{customdata[0]}</b><br>' +
+                'Tasa Mujeres: %{x:.2f}<br>' +
+                'Tasa Hombres: %{customdata[1]:.2f}<br>' +
+                'Brecha de Género: %{customdata[2]:.2f}<br>' +
+                'Tasa Total: %{customdata[3]:.2f}<extra></extra>',
+            customdata: df.map(row => [
+                row.State_Name, 
+                row.AAMR_Hombres, 
+                row.Gender_Gap, 
+                row.AAMR_Total
+            ])
+        });
+        
+        // Create layout
+        const layout = {
+            title: {
+                text: '',
+                font: { size: 16 }
+            },
+            xaxis: {
+                title: 'Tasa de Mortalidad Ajustada por Edad por TB (100,000 habitantes)',
+                showgrid: true,
+                gridcolor: 'rgba(0,0,0,0.1)',
+                zeroline: false
+            },
+            yaxis: {
+                title: 'Estado',
+                automargin: true,
+                tickmode: 'array',
+                tickvals: df.map((_, i) => i),
+                ticktext: df.map(row => row.State_Name)
+            },
+            height: 600,
+            showlegend: true,
+            legend: {
+                orientation: 'h',
+                yanchor: 'bottom',
+                y: 1.02,
+                xanchor: 'right',
+                x: 1
+            },
+            hovermode: 'closest',
+            margin: { l: 150, r: 50, t: 50, b: 80 }
+        };
+        
+        // Create the plot
+        Plotly.newPlot('interactive-plot', traces, layout, {
+            responsive: true,
+            displayModeBar: true,
+            displaylogo: false,
+            modeBarButtonsToAdd: [
+                {
+                    name: 'Download Plot',
+                    icon: Plotly.Icons.camera,
+                    click: function(gd) {
+                        Plotly.downloadImage(gd, {
+                            format: 'png',
+                            width: 1200,
+                            height: 800,
+                            filename: 'TB_tasas_sex2023'
+                        });
+                    }
+                }
+            ],
+            modeBarButtonsToRemove: ['pan2d', 'lasso2d', 'select2d']
+        });
+        
     } catch (error) {
-        console.error('Error creating plot:', error);
+        console.error('Error in createInteractivePlot:', error);
         document.getElementById('plot-loading').innerHTML = 
             '<p>Error creando la visualización. Por favor, intente recargar la página.</p>';
     }
