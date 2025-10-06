@@ -877,7 +877,9 @@ function loadInteractivePlot() {
     try {
         // Hide loading indicator
         document.getElementById('plot-loading').style.display = 'none';
-        
+        console.log('CSV Data length:', csvData.length);
+console.log('State Names length:', stateNames.length);
+console.log('First data item:', csvData[0]);
 function createInteractivePlot(data) {
     try {
         // Process the data - ensure we have valid data
