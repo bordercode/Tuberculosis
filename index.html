@@ -343,9 +343,38 @@
                     <p>La mayoría de los estados con alta mortalidad se ubican en la región noroeste del país.</p>
                 </div>
             </div>
-            
-            <!-- Slide 4: Distribución por Categorías -->
-            <div class="slide" id="slide4">
+            <!-- NEW Slide (after slide 3) -->
+<div class="slide" id="slide4">
+    <h2 class="slide-title">Determinantes sociales. Modelado no paramétrico</h2>
+    <div class="slide-content">
+        <div class="text-center">
+            <img src="images/Fig1_b.png" 
+                 alt="Figura 1 - Modelado no paramétrico" 
+                 class="img-fluid" style="max-height: 600px; width: auto;">
+            <p class="reference mt-2">
+                Fuente: Elaboración propia con datos de (SINAIS). <br>
+                <a href="https://www.kaggle.com/code/jlmanzanares/modelado-no-param-trico" target="_blank" rel="noopener">
+                    Repositorio público (Kaggle) para replicación
+                </a>
+            </p>
+        </div>
+
+        <!-- Blue emphasized box with icon -->
+        <div class="blue-box mt-3">
+            <p class="question mb-2">
+                <i class="fas fa-map-marker-alt me-2"></i>
+                <strong>¿Importa la localización para comprender este fenómeno de salud pública?</strong>
+            </p>
+
+            <p>
+                Como podemos observar en este caso particular, la evidencia a partir de la estimación del modelo no paramétrico con la técnica de <strong>Random Forest</strong> indica que los factores con mayor capacidad predictiva son: la <strong>edad</strong> y la <strong>localidad de residencia</strong>, que en conjunto tienen una importancia predictiva del 63.2% (32.9% + 30.3%, respectivamente). Adicionalmente, factores socioeconómicos como la <strong>ocupación</strong> y el <strong>nivel educativo</strong> son muy relevantes y tienen una importancia combinada del 17.7%.
+            </p>
+        </div>
+    </div>
+</div>
+<!-- /NEW Slide -->
+            <!-- Slide 5: Distribución por Categorías -->
+            <div class="slide" id="slide5">
                 <h2 class="slide-title">Distribución por Categorías de TB</h2>
                 <div class="slide-content">
                     <div class="table-container">
@@ -468,8 +497,8 @@
                 </div>
             </div>
             
-            <!-- Slide 5: Acceso a Servicios de Salud -->
-            <div class="slide" id="slide5">
+            <!-- Slide 6: Acceso a Servicios de Salud -->
+            <div class="slide" id="slide6">
                 <h2 class="slide-title">Análisis epacial. Distancia a Hospitales con especialistas en neumología</h2>
                 <div class="slide-content">
                     <div class="text-center">
@@ -498,8 +527,8 @@
     </div>
 </div>
             
-            <!-- Slide 6: Access to Pneumology Services -->
-            <div class="slide" id="slide6">
+            <!-- Slide 7: Access to Pneumology Services -->
+            <div class="slide" id="slide7">
                 <h2 class="slide-title">Clasificación de pblación con acceso Restringido</h2>
                 <div class="slide-content">
                     <img src="images/Acceso_vs_tasas.png" alt="Tasa de mortalidad ajustada por estructura de edad por tuberculosis según sexo por entidad federativa 1998-2023" class="img-fluid" style="max-height: 800px; width: auto;"> 
@@ -523,8 +552,8 @@
                 </div>
             </div>
             
-            <!-- Slide 7: Tendencias Temporales -->
-            <div class="slide" id="slide7">
+            <!-- Slide 8: Tendencias Temporales -->
+            <div class="slide" id="slide8">
                 <h2 class="slide-title">Tendencias Temporales (1998-2023)</h2>
                 <div class="slide-content">
                     <img src="images/TB-MX1998-2023.jpg" alt="Tasa de mortalidad ajustada por estructura de edad por tuberculosis según sexo por entidad federativa 1998-2023" class="img-fluid" style="max-height: 91%; width: auto;">
@@ -554,8 +583,8 @@
                 </div>
             </div>
             
-            <!-- Slide 8: Edad de Fallecimiento -->
-            <div class="slide" id="slide8">
+            <!-- Slide 9: Edad de Fallecimiento -->
+            <div class="slide" id="slide9">
                 <h2 class="slide-title">Edad de Fallecimiento y Brechas de Género</h2>
                 <div class="slide-content">
                     <div class="row">
@@ -589,8 +618,8 @@
                 </div>
             </div>
             
-            <!-- Slide 9: Discusión -->
-            <div class="slide" id="slide9">
+            <!-- Slide 10: Discusión -->
+            <div class="slide" id="slide10">
                 <h2 class="slide-title">Discusión</h2>
                 <div class="slide-content">
                     <p>Aunque México tiene una tasa de mortalidad por TB relativamente baja en el contexto latinoamericano (2.16/100,000 hab.), existen disparidades regionales significativas con tasas que superan los dos dígitos en algunas áreas.</p>
@@ -611,8 +640,8 @@
                 </div>
             </div>
             
-            <!-- Slide 10: Conclusiones -->
-            <div class="slide" id="slide10">
+            <!-- Slide 11: Conclusiones -->
+            <div class="slide" id="slide11">
                 <h2 class="slide-title">Conclusiones y Recomendaciones</h2>
                 <div class="slide-content">
                     <p>La evidencia sugiere la necesidad de implementar estrategias diferenciadas según las características específicas de cada región:</p>
@@ -633,8 +662,8 @@
                 </div>
             </div>
             
-            <!-- Slide 11: Contacto -->
-            <div class="slide" id="slide11">
+            <!-- Slide 12: Contacto -->
+            <div class="slide" id="slide12">
                 <h2 class="slide-title">Contacto y Agradecimientos</h2>
                 <div class="slide-content text-center">
                     <div class="my-5 py-4">
@@ -666,12 +695,12 @@
             <!-- SINGLE NAVIGATION BUTTONS CONTAINER (FIXED) -->
             <div class="nav-buttons-container" id="nav-buttons-container">
                 <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
-                <span id="slide-counter">Slide 1 de 11</span>
+                <span id="slide-counter">Slide 1 de 12</span>
                 <button class="btn-nav" id="next-button" onclick="nextSlide()">Siguiente <i class="fas fa-arrow-right"></i></button>
             </div>
         </div>
         
-        <!-- Footer only shown on slide 11 -->
+        <!-- Footer only shown on slide 12 -->
         <footer class="text-center mt-4 pt-3 border-top" id="main-footer" style="display: none;">
             <p>© 2025 - Dissclaimer: Research conducted at El Colegio de la Frontera Norte Nogales. Analysis and opinions expressed are the author's responsibility and does not necessarily reflect an institutional position on the matter. Copyright © 2025.All graphic materials used in this academic presentation are intended for educational purposes only and are used under a total non-for-profit research setting. analisis-de-datos-parael-bienpúblico was made with  by José Luis Manzanares Rivera</p>
         </footer>
@@ -679,7 +708,7 @@
 
     <script>
         let currentSlide = 1;
-        const totalSlides = 11;
+        const totalSlides = 12;
         
         function updateProgressBar() {
             const progress = (currentSlide / totalSlides) * 100;
@@ -712,7 +741,7 @@
             
             // Show/hide footer based on current slide
             const footer = document.getElementById('main-footer');
-            if (n === 11) {
+            if (n === 12) {
                 footer.style.display = 'block';
             } else {
                 footer.style.display = 'none';
@@ -723,7 +752,7 @@
                 loadInteractivePlot();
             }
             // Load the access plot when reaching slide 6
-            if (n === 6 && !window.accessScatterPlotLoaded) {
+            if (n === 7 && !window.accessScatterPlotLoaded) {
                 loadAccessScatterPlot();
             }
         }
