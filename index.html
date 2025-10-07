@@ -484,17 +484,75 @@
 <div class="slide" id="slide5">
     <h2 class="slide-title">Determinantes sociales. Modelado no paramétrico</h2>
     <div class="slide-content">
-        <div class="text-center">
-            <img src="images/Fig1_b.png" 
-                 alt="Figura 1 - Modelado no paramétrico" 
-                 class="img-fluid" style="max-height: 600px; width: auto;">
-            <p class="reference mt-2">
-                Fuente: Elaboración propia con datos de (SINAIS). <br>
-                <a href="https://www.kaggle.com/code/jlmanzanares/modelado-no-param-trico" target="_blank" rel="noopener">
-                    Repositorio público (Kaggle) para replicación
-                </a>
-            </p>
-        </div>
+      <!-- Interactive Plotly Chart -->
+<div id="feature-importance-plot" style="width:100%; height:600px;"></div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const featureData = [
+        { feature: 'Edad', importance: 0.329 },
+        { feature: 'Localidad', importance: 0.303 },
+        { feature: 'Ocupación', importance: 0.093 },
+        { feature: 'Escolaridad', importance: 0.084 },
+        { feature: 'Sexo', importance: 0.067 },
+        { feature: 'Cobertura médica', importance: 0.054 },
+        { feature: 'Indígena', importance: 0.037 },
+        { feature: 'Migrante', importance: 0.020 },
+        { feature: 'Afrodescendiente', importance: 0.008 },
+        { feature: 'Estado civil', importance: 0.005 }
+    ];
+
+    const colorblindPalette = [
+        "#0173b2", "#de8f05", "#029e73", "#d55e00", "#cc78bc",
+        "#ca9161", "#fbafe4", "#949494", "#ece133", "#56b4e9"
+    ];
+
+    const trace = {
+        type: 'bar',
+        x: featureData.map(d => d.importance),
+        y: featureData.map(d => d.feature),
+        orientation: 'h',
+        marker: {
+            color: colorblindPalette,
+            line: { color: 'black', width: 1.2 }
+        },
+        hovertemplate: "<b>%{y}</b><br>Importancia: %{x:.3f}<extra></extra>"
+    };
+
+    const layout = {
+        title: {
+            text: 'b) Importancia predictiva de variables sociodemográficas',
+            x: 0.5,
+            font: { size: 18 }
+        },
+        xaxis: {
+            title: 'Score',
+            tickfont: { size: 12 },
+            titlefont: { size: 14 },
+            gridcolor: 'rgba(0,0,0,0.1)',
+            zeroline: false
+        },
+        yaxis: {
+            title: '',
+            tickfont: { size: 13 },
+            autorange: 'reversed'  // Highest bar on top
+        },
+        plot_bgcolor: 'white',
+        height: 600,
+        margin: { l: 100, r: 50, t: 70, b: 50 }
+    };
+
+    Plotly.newPlot('feature-importance-plot', [trace], layout, {responsive: true});
+});
+</script>
+
+<p class="reference mt-2">
+    Fuente: Elaboración propia con datos de (SINAIS). <br>
+    <a href="https://www.kaggle.com/code/jlmanzanares/modelado-no-param-trico" target="_blank" rel="noopener">
+        Repositorio público (Kaggle) para replicación
+    </a>
+</p>
+  
 
         <!-- Blue emphasized box with icon -->
         <div class="blue-box mt-3">
