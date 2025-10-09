@@ -653,9 +653,31 @@ document.addEventListener('DOMContentLoaded', function() {
                     </ul>
                 </div>
             </div>
-            
-            <!-- Slide 9: Edad de Fallecimiento -->
-            <div class="slide" id="slide9">
+            <!-- Slide 9: Mapa Interactivo 1998–2023 -->
+<div class="slide" id="slide9">
+  <h2 class="slide-title">Mapa Interactivo de Mortalidad por Tuberculosis (1998–2023)</h2>
+  <div class="slide-content text-center">
+    <p>Visualización comparativa de los decesos por TB en México (1998 y 2023) con capas activables.</p>
+
+    <!-- Embed the interactive map -->
+    <iframe 
+        src="plots/Tb_mex_map_1998-2023_bothlayers.html" 
+        width="100%" 
+        height="600" 
+        style="border:none; border-radius:10px;">
+    </iframe>
+
+    <p class="reference mt-3">
+      Fuente: Elaboración propia con datos de SINAIS.<br>
+      <a href="plots/Tb_mex_map_1998-2023_bothlayers.html" target="_blank">
+        Abrir mapa en una pestaña nueva
+      </a>
+    </p>
+  </div>
+</div>
+
+            <!-- Slide 10: Edad de Fallecimiento -->
+            <div class="slide" id="slide10">
                 <h2 class="slide-title">Edad de Fallecimiento y Brechas de Género</h2>
                 <div class="slide-content">
                     <div class="row">
@@ -689,8 +711,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>
             
-            <!-- Slide 10: Discusión -->
-            <div class="slide" id="slide10">
+            <!-- Slide 11: Discusión -->
+            <div class="slide" id="slide11">
                 <h2 class="slide-title">Discusión</h2>
                 <div class="slide-content">
                     <p>Aunque México tiene una tasa de mortalidad por TB relativamente baja en el contexto latinoamericano (2.16/100,000 hab.), existen disparidades regionales significativas con tasas que superan los dos dígitos en algunas áreas.</p>
@@ -711,8 +733,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>
             
-            <!-- Slide 11: Conclusiones -->
-            <div class="slide" id="slide11">
+            <!-- Slide 12: Conclusiones -->
+            <div class="slide" id="slide12">
                 <h2 class="slide-title">Conclusiones y Recomendaciones</h2>
                 <div class="slide-content">
                     <p>La evidencia sugiere la necesidad de implementar estrategias diferenciadas según las características específicas de cada región:</p>
@@ -733,8 +755,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>
             
-            <!-- Slide 12: Contacto -->
-            <div class="slide" id="slide12">
+            <!-- Slide 13: Contacto -->
+            <div class="slide" id="slide13">
                 <h2 class="slide-title">Contacto y Agradecimientos</h2>
                 <div class="slide-content text-center">
                     <div class="my-5 py-4">
@@ -766,12 +788,12 @@ document.addEventListener('DOMContentLoaded', function() {
             <!-- SINGLE NAVIGATION BUTTONS CONTAINER (FIXED) -->
             <div class="nav-buttons-container" id="nav-buttons-container">
                 <button class="btn-nav" onclick="prevSlide()"><i class="fas fa-arrow-left"></i> Anterior</button>
-                <span id="slide-counter">Slide 1 de 12</span>
+                <span id="slide-counter">Slide 1 de 13</span>
                 <button class="btn-nav" id="next-button" onclick="nextSlide()">Siguiente <i class="fas fa-arrow-right"></i></button>
             </div>
         </div>
         
-        <!-- Footer only shown on slide 12 -->
+        <!-- Footer only shown on slide 13 -->
         <footer class="text-center mt-4 pt-3 border-top" id="main-footer" style="display: none;">
             <p>© 2025 - Dissclaimer: Research conducted at El Colegio de la Frontera Norte Nogales. Analysis and opinions expressed are the author's responsibility and does not necessarily reflect an institutional position on the matter. Copyright © 2025.All graphic materials used in this academic presentation are intended for educational purposes only and are used under a total non-for-profit research setting. analisis-de-datos-parael-bienpúblico was made with  by José Luis Manzanares Rivera</p>
         </footer>
@@ -779,7 +801,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <script>
         let currentSlide = 1;
-        const totalSlides = 12;
+        const totalSlides = 13;
         
         function updateProgressBar() {
             const progress = (currentSlide / totalSlides) * 100;
@@ -812,7 +834,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Show/hide footer based on current slide
             const footer = document.getElementById('main-footer');
-            if (n === 12) {
+            if (n === 13) {
                 footer.style.display = 'block';
             } else {
                 footer.style.display = 'none';
